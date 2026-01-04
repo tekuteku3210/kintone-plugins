@@ -726,6 +726,40 @@ plugins/tab-view/
 └── README.md
 ```
 
+##### 課題4: レコード一覧画面でのアプリタイトルのずれ
+**問題**: Tailwind CSSの`@tailwind base;`がグローバルリセットCSSを適用し、kintone標準UIに影響
+
+**解決策**（2026年1月4日 v1.0.0リリース時に対応）:
+- `@tailwind base;`を削除してグローバルリセットを除外
+- CSSセレクタをレコード詳細・編集・作成画面のみに限定
+  ```css
+  .gaia-argoui-app-show-pager #tabview-root,
+  .gaia-argoui-app-edit-pager #tabview-root,
+  .gaia-argoui-app-create-pager #tabview-root { ... }
+  ```
+- すべてのクラスセレクタを`#tabview-root`の子孫セレクタに変更
+- 実装箇所: [src/desktop/styles.css](plugins/tab-view/src/desktop/styles.css)
+
+##### 課題5: スペースフィールドの選択方法
+**問題**: スペースフィールドIDをテキスト入力させる方式は不親切
+
+**解決策**（2026年1月4日 v1.0.0リリース時に対応）:
+- kintone REST API (`/k/v1/app/form/layout`) でスペースフィールド一覧を取得
+- ドロップダウンで選択可能にする
+- スペースフィールド選択を必須化（自動挿入ロジックを廃止）
+- 実装箇所:
+  - [src/utils/kintone.ts:getSpaceFields()](plugins/tab-view/src/utils/kintone.ts)
+  - [src/config/App.tsx](plugins/tab-view/src/config/App.tsx)
+
+#### リリース履歴
+
+##### v1.0.0（2026年1月4日）
+- ✅ 初回リリース
+- ✅ スペースフィールド選択機能（ドロップダウン方式）
+- ✅ レコード一覧画面でのアプリタイトルのずれ修正
+- ✅ CSSスコープを詳細・編集・作成画面に限定
+- ✅ GitHub Release: https://github.com/tekuteku3210/kintone-plugins/releases/tag/tab-view-v1.0.0
+
 #### 次の改善案
 - [ ] タブのドラッグ&ドロップ並び替え
 - [ ] 共通フィールド機能（全タブに表示するフィールド）
