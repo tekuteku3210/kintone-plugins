@@ -134,7 +134,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 max-w-7xl">
       <h1 className="text-2xl font-bold mb-6">TabView プラグイン設定</h1>
 
       {/* 前提条件の表示 (#32準拠) */}
@@ -151,46 +151,40 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* 2カラムレイアウト: 左=設定、右=プレビュー */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* 左カラム: 設定 */}
-        <div className="space-y-6">
-          {/* タブ一覧（タブ追加ボタンも含む） */}
-          <TabList
-            tabs={tabs}
-            onEdit={setEditingTab}
-            onDelete={handleDeleteTab}
-            onMove={handleMoveTab}
-            onAdd={handleAddTab}
-            maxTabs={MAX_FREE_TABS}
+      {/* タブ一覧（横スクロール） */}
+      <TabList
+        tabs={tabs}
+        activeTabId={editingTab?.id || null}
+        onEdit={setEditingTab}
+        onDelete={handleDeleteTab}
+        onMove={handleMoveTab}
+        onAdd={handleAddTab}
+        maxTabs={MAX_FREE_TABS}
+      />
+
+      {/* 選択したタブのプレビュー＋編集 */}
+      {editingTab && (
+        <div className="mt-6">
+          <TabEditor
+            tab={editingTab}
+            fields={fields}
+            allTabs={tabs}
+            onSave={handleUpdateTab}
+            onCancel={() => setEditingTab(null)}
           />
-
-          {/* タブ編集エリア */}
-          {editingTab && (
-            <TabEditor
-              tab={editingTab}
-              fields={fields}
-              allTabs={tabs}
-              onSave={handleUpdateTab}
-              onCancel={() => setEditingTab(null)}
-            />
-          )}
         </div>
+      )}
 
-        {/* 右カラム: リアルタイムプレビュー */}
-        <div>
-          {tabs.length > 0 ? (
-            <TabPreview tabs={tabs} fields={fields} />
-          ) : (
-            <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg text-center">
-              <p className="text-gray-500">タブを追加するとプレビューが表示されます</p>
-            </div>
-          )}
+      {/* タブが未選択の場合のメッセージ */}
+      {!editingTab && tabs.length > 0 && (
+        <div className="mt-6 p-8 bg-gray-50 border border-gray-200 rounded-lg text-center">
+          <p className="text-gray-600 text-lg">タブを選択して編集してください</p>
+          <p className="text-gray-500 text-sm mt-2">上のタブをクリックすると、フィールド設定とプレビューが表示されます</p>
         </div>
-      </div>
+      )}
 
       {/* 保存・キャンセルボタン */}
-      <div className="mt-8 flex justify-end gap-4">
+      <div className="mt-8 flex justify-end gap-4 border-t pt-4">
         <button onClick={handleCancel} className="btn-secondary">
           変更を破棄
         </button>
