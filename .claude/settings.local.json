@@ -17,7 +17,16 @@
       "Bash(npm run package:*)",
       "Bash(test:*)",
       "Bash(node create-icon.js:*)",
-      "Bash(npx @kintone/plugin-packer:*)"
+      "Bash(npx @kintone/plugin-packer:*)",
+      "Bash(gh --version:*)",
+      "Bash(gh auth status:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(gh api:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
