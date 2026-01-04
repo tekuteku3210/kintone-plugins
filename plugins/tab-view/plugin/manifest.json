@@ -1,0 +1,32 @@
+{
+  "manifest_version": 1,
+  "version": 1,
+  "type": "APP",
+  "name": {
+    "ja": "TabView - タブビュー",
+    "en": "TabView - Tab View for Records"
+  },
+  "description": {
+    "ja": "レコード詳細画面をタブで整理し、見やすく表示します。",
+    "en": "Organize record details with tabs for better visibility."
+  },
+  "icon": "icon.png",
+  "desktop": {
+    "js": [
+      "js/desktop.js"
+    ],
+    "css": [
+      "css/desktop.css"
+    ]
+  },
+  "config": {
+    "html": "html/config.html",
+    "js": [
+      "js/config.js"
+    ],
+    "css": [
+      "css/config.css"
+    ],
+    "required_params": []
+  }
+}

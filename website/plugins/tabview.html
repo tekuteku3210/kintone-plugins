@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TabView - kintoneレコード詳細画面をタブで整理するプラグイン">
+    <title>TabView - kintone Plugin</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- カスタムスタイル -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- ヘッダー -->
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="../index.html" class="flex items-center space-x-3 hover:opacity-80 transition">
+                        <i class="fas fa-puzzle-piece text-primary-500 text-2xl"></i>
+                        <h1 class="text-xl font-bold text-gray-900">kintone Plugins</h1>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-gray-600 hover:text-primary-500 transition">
+                    <i class="fas fa-arrow-left mr-2"></i> 一覧に戻る
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- プラグイン詳細ヘッダー -->
+    <section class="bg-gradient-to-r from-blue-500 to-blue-600 text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center mb-4">
+                <div class="bg-white bg-opacity-20 w-16 h-16 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-table text-3xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-4xl font-bold mb-2">TabView</h2>
+                    <p class="text-xl text-blue-100">レコード詳細画面をタブで整理</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-6 mt-6">
+                <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">無償</span>
+                <span class="text-blue-100"><i class="fas fa-tag mr-2"></i>v1.0.0</span>
+                <span class="text-blue-100"><i class="fas fa-calendar mr-2"></i>2026年1月リリース</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ダウンロードセクション -->
+    <section class="bg-white shadow-md -mt-8 relative z-10">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-lg font-semibold mb-1">今すぐダウンロード</h3>
+                    <p class="text-gray-600 text-sm">登録不要・無料でご利用いただけます</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://github.com/yourusername/kintone-plugins/releases/download/tabview-v1.0.0/tabview.zip"
+                       class="bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition font-medium inline-flex items-center"
+                       download>
+                        <i class="fas fa-download mr-2"></i> ZIPをダウンロード
+                    </a>
+                    <a href="https://github.com/yourusername/kintone-plugins/tree/main/plugins/tab-view"
+                       target="_blank"
+                       class="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition font-medium inline-flex items-center">
+                        <i class="fab fa-github mr-2"></i> GitHubで見る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 概要 -->
+    <section class="py-12">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold mb-6">概要</h3>
+                <p class="text-gray-700 mb-4 leading-relaxed">
+                    TabViewは、kintoneのレコード詳細画面をタブで整理するプラグインです。
+                    フィールド数が多いアプリでも、カテゴリごとにタブ分けすることで視認性が大幅に向上します。
+                </p>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                    直感的な設定画面で、タブの名前・色・アイコンをカスタマイズでき、
+                    各タブに表示するフィールドをドラッグ&ドロップで簡単に設定できます。
+                </p>
+
+                <!-- スクリーンショットプレースホルダー -->
+                <div class="bg-gray-200 rounded-lg h-96 flex items-center justify-center mb-8">
+                    <div class="text-center text-gray-500">
+                        <i class="fas fa-image text-6xl mb-4"></i>
+                        <p>スクリーンショット（追加予定）</p>
+                    </div>
+                </div>
+
+                <!-- 主な機能 -->
+                <h3 class="text-2xl font-bold mb-6">主な機能</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="flex items-start">
+                        <div class="bg-primary-100 w-10 h-10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fas fa-layer-group text-primary-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-1">タブで整理</h4>
+                            <p class="text-gray-600 text-sm">最大5つのタブを作成し、フィールドをカテゴリごとに分類できます。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary-100 w-10 h-10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fas fa-palette text-primary-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-1">カスタマイズ</h4>
+                            <p class="text-gray-600 text-sm">タブの色とアイコンを自由に設定し、視覚的にわかりやすく表現できます。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary-100 w-10 h-10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fas fa-eye text-primary-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-1">プレビュー機能</h4>
+                            <p class="text-gray-600 text-sm">設定画面でレコード表示をシミュレートし、事前に確認できます。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary-100 w-10 h-10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fas fa-bolt text-primary-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-1">高速動作</h4>
+                            <p class="text-gray-600 text-sm">軽量設計で、大量フィールドでもスムーズに動作します。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- インストール方法 -->
+                <h3 class="text-2xl font-bold mb-6">インストール方法</h3>
+                <ol class="space-y-4 mb-8">
+                    <li class="flex items-start">
+                        <span class="bg-primary-500 text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 font-semibold">1</span>
+                        <div>
+                            <p class="font-semibold mb-1">プラグインをダウンロード</p>
+                            <p class="text-gray-600 text-sm">上記のダウンロードボタンから <code class="bg-gray-100 px-2 py-1 rounded text-xs">tabview.zip</code> をダウンロードします。</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-primary-500 text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 font-semibold">2</span>
+                        <div>
+                            <p class="font-semibold mb-1">kintoneにアップロード</p>
+                            <p class="text-gray-600 text-sm">kintoneの「設定」→「プラグイン」→「読み込む」から、ダウンロードしたZIPファイルをアップロードします。</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-primary-500 text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 font-semibold">3</span>
+                        <div>
+                            <p class="font-semibold mb-1">アプリに追加</p>
+                            <p class="text-gray-600 text-sm">対象アプリの「設定」→「プラグイン」→「追加」から、TabViewを選択して追加します。</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-primary-500 text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 font-semibold">4</span>
+                        <div>
+                            <p class="font-semibold mb-1">スペースフィールドを配置</p>
+                            <p class="text-gray-600 text-sm">フォーム設定で「スペース」フィールドを追加し、要素ID に <code class="bg-gray-100 px-2 py-1 rounded text-xs">tabview-space</code> を設定します。</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-primary-500 text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 font-semibold">5</span>
+                        <div>
+                            <p class="font-semibold mb-1">タブを設定</p>
+                            <p class="text-gray-600 text-sm">プラグインの設定画面を開き、タブを作成してフィールドを割り当てます。</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <!-- 使い方 -->
+                <h3 class="text-2xl font-bold mb-6">使い方</h3>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                    <h4 class="font-semibold mb-2"><i class="fas fa-info-circle text-blue-500 mr-2"></i>タブの作成</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-700 text-sm">
+                        <li>プラグイン設定画面を開く</li>
+                        <li>「タブを追加」ボタンをクリック</li>
+                        <li>タブ名、色、アイコンを設定</li>
+                        <li>表示するフィールドを選択</li>
+                        <li>「保存」をクリック</li>
+                    </ol>
+                </div>
+
+                <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-8">
+                    <h4 class="font-semibold mb-2"><i class="fas fa-lightbulb text-green-500 mr-2"></i>ヒント</h4>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700 text-sm">
+                        <li>タブの並び順は、タブ一覧で左から右への順番で表示されます</li>
+                        <li>同じフィールドを複数のタブに割り当てることはできません</li>
+                        <li>プレビュー機能で、実際のレコード表示を確認できます</li>
+                    </ul>
+                </div>
+
+                <!-- 動作環境 -->
+                <h3 class="text-2xl font-bold mb-6">動作環境</h3>
+                <div class="bg-white border rounded-lg p-6 mb-8">
+                    <table class="w-full text-sm">
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="py-3 font-semibold text-gray-700 w-1/3">対応ブラウザ</td>
+                                <td class="py-3 text-gray-600">Chrome, Edge, Safari, Firefox（最新版）</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-3 font-semibold text-gray-700">kintone バージョン</td>
+                                <td class="py-3 text-gray-600">最新版推奨</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-3 font-semibold text-gray-700">モバイル対応</td>
+                                <td class="py-3 text-gray-600">レスポンシブ対応（スマホ・タブレット可）</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 font-semibold text-gray-700">ライセンス</td>
+                                <td class="py-3 text-gray-600">MIT License（無償・商用利用可）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- FAQ -->
+                <h3 class="text-2xl font-bold mb-6">よくある質問</h3>
+                <div class="space-y-4 mb-8">
+                    <details class="bg-white border rounded-lg p-4 cursor-pointer hover:shadow-md transition">
+                        <summary class="font-semibold text-gray-800">Q. タブは何個まで作成できますか？</summary>
+                        <p class="mt-3 text-gray-600 text-sm">A. 最大5つまで作成可能です。</p>
+                    </details>
+                    <details class="bg-white border rounded-lg p-4 cursor-pointer hover:shadow-md transition">
+                        <summary class="font-semibold text-gray-800">Q. 標準フィールド（レコード番号、作成者など）も表示できますか？</summary>
+                        <p class="mt-3 text-gray-600 text-sm">A. はい、対応しています。設定画面のフィールド一覧から選択できます。</p>
+                    </details>
+                    <details class="bg-white border rounded-lg p-4 cursor-pointer hover:shadow-md transition">
+                        <summary class="font-semibold text-gray-800">Q. レコード編集画面でも動作しますか？</summary>
+                        <p class="mt-3 text-gray-600 text-sm">A. 現在は詳細画面のみ対応しています。今後のバージョンで編集画面にも対応予定です。</p>
+                    </details>
+                    <details class="bg-white border rounded-lg p-4 cursor-pointer hover:shadow-md transition">
+                        <summary class="font-semibold text-gray-800">Q. 商用利用は可能ですか？</summary>
+                        <p class="mt-3 text-gray-600 text-sm">A. はい、MITライセンスのため無償で商用利用が可能です。</p>
+                    </details>
+                </div>
+
+                <!-- サポート -->
+                <h3 class="text-2xl font-bold mb-6">サポート</h3>
+                <p class="text-gray-700 mb-4">
+                    バグ報告や機能リクエストは、GitHubのIssuesページにてお願いします。
+                </p>
+                <a href="https://github.com/yourusername/kintone-plugins/issues" target="_blank"
+                   class="inline-block bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition font-medium">
+                    <i class="fab fa-github mr-2"></i> GitHub Issuesを開く
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-2">&copy; 2026 Sakaguchi Takaya. All rights reserved.</p>
+            <p class="text-sm text-gray-500">Made with <i class="fas fa-heart text-red-500"></i> for kintone users</p>
+        </div>
+    </footer>
+</body>
+</html>

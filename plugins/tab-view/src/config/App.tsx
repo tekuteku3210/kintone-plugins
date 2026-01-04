@@ -1,0 +1,205 @@
+import React, { useState, useEffect } from 'react';
+import type { Tab, PluginConfig, KintoneField } from '@/types';
+import { getConfig, setConfig, generateId } from '@/utils/config';
+import { validateTabLabel, validateTabLimit, validateFields } from '@/utils/validation';
+import { getAppFields } from '@/utils/kintone';
+import TabEditor from './components/TabEditor';
+import TabList from './components/TabList';
+import TabPreview from './components/TabPreview';
+
+const PLUGIN_ID = kintone.$PLUGIN_ID;
+const MAX_FREE_TABS = 5;
+
+const App: React.FC = () => {
+  const [tabs, setTabs] = useState<Tab[]>([]);
+  const [commonFields, setCommonFields] = useState<string[]>([]);
+  const [fields, setFields] = useState<Record<string, KintoneField>>({});
+  const [editingTab, setEditingTab] = useState<Tab | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  // 初期化: プラグイン設定とフィールド情報を取得
+  useEffect(() => {
+    const init = async () => {
+      try {
+        const config = getConfig(PLUGIN_ID);
+        setTabs(config.tabs || []);
+        setCommonFields(config.commonFields || []);
+
+        const appFields = await getAppFields();
+        setFields(appFields);
+      } catch (err) {
+        setError('設定の読み込みに失敗しました。ページを再読み込みしてください。');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    init();
+  }, []);
+
+  // タブを追加
+  const handleAddTab = () => {
+    const limitError = validateTabLimit(tabs.length, MAX_FREE_TABS);
+    if (limitError) {
+      setError(limitError.message);
+      return;
+    }
+
+    const newTab: Tab = {
+      id: generateId(),
+      label: `新しいタブ ${tabs.length + 1}`,
+      icon: '',
+      fields: [],
+    };
+
+    setTabs([...tabs, newTab]);
+    setEditingTab(newTab);
+    setError(null);
+  };
+
+  // タブを更新
+  const handleUpdateTab = (updatedTab: Tab) => {
+    const labelError = validateTabLabel(updatedTab.label, tabs, updatedTab.id);
+    if (labelError) {
+      setError(labelError.message);
+      return;
+    }
+
+    const fieldsError = validateFields(updatedTab.fields);
+    if (fieldsError) {
+      setError(fieldsError.message);
+      return;
+    }
+
+    setTabs(tabs.map((tab) => (tab.id === updatedTab.id ? updatedTab : tab)));
+    setEditingTab(null);
+    setError(null);
+  };
+
+  // タブを削除
+  const handleDeleteTab = (tabId: string) => {
+    const tab = tabs.find((t) => t.id === tabId);
+    if (!tab) return;
+
+    if (confirm(`「${tab.label}」タブを削除しますか?`)) {
+      setTabs(tabs.filter((t) => t.id !== tabId));
+      if (editingTab?.id === tabId) {
+        setEditingTab(null);
+      }
+    }
+  };
+
+  // タブの順序を変更
+  const handleMoveTab = (tabId: string, direction: 'up' | 'down') => {
+    const index = tabs.findIndex((t) => t.id === tabId);
+    if (index === -1) return;
+
+    const newTabs = [...tabs];
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+
+    if (targetIndex < 0 || targetIndex >= tabs.length) return;
+
+    [newTabs[index], newTabs[targetIndex]] = [newTabs[targetIndex], newTabs[index]];
+    setTabs(newTabs);
+  };
+
+  // 設定を保存
+  const handleSave = async () => {
+    try {
+      const config: PluginConfig = { tabs, commonFields };
+      await setConfig(PLUGIN_ID, config);
+      alert('設定を保存しました');
+      window.location.href = `/k/admin/app/${kintone.app.getId()}/plugin/`;
+    } catch (err) {
+      setError('設定の保存に失敗しました。もう一度お試しください。');
+      console.error(err);
+    }
+  };
+
+  // キャンセル
+  const handleCancel = () => {
+    if (confirm('変更を破棄しますか?')) {
+      window.location.href = `/k/admin/app/${kintone.app.getId()}/plugin/`;
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-gray-600">読み込み中...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">TabView プラグイン設定</h1>
+
+      {/* 前提条件の表示 (#32準拠) */}
+      <div className="info-box">
+        <p className="info-box-text">
+          無料プランでは最大{MAX_FREE_TABS}タブまで作成できます（現在: {tabs.length}/{MAX_FREE_TABS}）
+        </p>
+      </div>
+
+      {/* エラーメッセージ */}
+      {error && (
+        <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded mb-6">
+          <p className="text-red-800 text-sm">⚠️ {error}</p>
+        </div>
+      )}
+
+      {/* 2カラムレイアウト: 左=設定、右=プレビュー */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* 左カラム: 設定 */}
+        <div className="space-y-6">
+          {/* タブ一覧（タブ追加ボタンも含む） */}
+          <TabList
+            tabs={tabs}
+            onEdit={setEditingTab}
+            onDelete={handleDeleteTab}
+            onMove={handleMoveTab}
+            onAdd={handleAddTab}
+            maxTabs={MAX_FREE_TABS}
+          />
+
+          {/* タブ編集エリア */}
+          {editingTab && (
+            <TabEditor
+              tab={editingTab}
+              fields={fields}
+              allTabs={tabs}
+              onSave={handleUpdateTab}
+              onCancel={() => setEditingTab(null)}
+            />
+          )}
+        </div>
+
+        {/* 右カラム: リアルタイムプレビュー */}
+        <div>
+          {tabs.length > 0 ? (
+            <TabPreview tabs={tabs} fields={fields} />
+          ) : (
+            <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg text-center">
+              <p className="text-gray-500">タブを追加するとプレビューが表示されます</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* 保存・キャンセルボタン */}
+      <div className="mt-8 flex justify-end gap-4">
+        <button onClick={handleCancel} className="btn-secondary">
+          変更を破棄
+        </button>
+        <button onClick={handleSave} className="btn-primary">
+          設定を保存
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default App;

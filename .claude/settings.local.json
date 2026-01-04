@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(winget install:*)",
+      "Bash(tree:*)",
+      "Bash(where:*)",
+      "Bash(C:Userstky51AppDataLocalMicrosoftWindowsAppspython.exe --version)",
+      "Bash(\"/c/Users/tky51/AppData/Local/Microsoft/WindowsApps/python.exe\" --version)",
+      "Bash(\"/c/Users/tky51/AppData/Local/Microsoft/WindowsApps/python.exe\" -m pip --version)",
+      "Bash(\"/c/Users/tky51/AppData/Local/Programs/Python/Python312/python.exe\" --version)",
+      "Bash(\"/c/Users/tky51/AppData/Local/Programs/Python/Python312/python.exe\" -m pip install claude-monitor)",
+      "Bash(\"/c/Users/tky51/AppData/Local/Programs/Python/Python312/Scripts/claude-monitor.exe\" --help)",
+      "Bash(/c/Users/tky51/AppData/Local/Programs/Python/Python312/Scripts/claude-monitor.exe)",
+      "Bash(npm install:*)",
+      "Bash(npm view:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run package:*)",
+      "Bash(test:*)",
+      "Bash(node create-icon.js:*)",
+      "Bash(npx @kintone/plugin-packer:*)"
+    ]
+  }
+}

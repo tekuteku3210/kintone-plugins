@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="kintoneプラグインを無償・有償で公開。業務効率化を実現するシンプルで高品質なプラグインを提供します。">
+    <title>kintone Plugins by Sakaguchi Takaya</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- カスタムスタイル -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- ヘッダー -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-puzzle-piece text-primary-500 text-2xl"></i>
+                    <h1 class="text-xl font-bold text-gray-900">kintone Plugins</h1>
+                </div>
+                <ul class="hidden md:flex space-x-8">
+                    <li><a href="#plugins" class="text-gray-600 hover:text-primary-500 transition">プラグイン</a></li>
+                    <li><a href="#about" class="text-gray-600 hover:text-primary-500 transition">について</a></li>
+                    <li><a href="#contact" class="text-gray-600 hover:text-primary-500 transition">お問い合わせ</a></li>
+                    <li><a href="https://github.com/yourusername/kintone-plugins" target="_blank" class="text-gray-600 hover:text-primary-500 transition">
+                        <i class="fab fa-github text-xl"></i>
+                    </a></li>
+                </ul>
+                <!-- モバイルメニューボタン -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            <!-- モバイルメニュー -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <ul class="space-y-3">
+                    <li><a href="#plugins" class="block text-gray-600 hover:text-primary-500 transition">プラグイン</a></li>
+                    <li><a href="#about" class="block text-gray-600 hover:text-primary-500 transition">について</a></li>
+                    <li><a href="#contact" class="block text-gray-600 hover:text-primary-500 transition">お問い合わせ</a></li>
+                    <li><a href="https://github.com/yourusername/kintone-plugins" target="_blank" class="block text-gray-600 hover:text-primary-500 transition">
+                        GitHub <i class="fab fa-github"></i>
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="bg-gradient-to-r from-primary-500 to-primary-600 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">kintoneをもっと便利に</h2>
+            <p class="text-xl md:text-2xl mb-8 text-primary-50">シンプルで高品質なプラグインを無償・有償で提供</p>
+            <a href="#plugins" class="inline-block bg-white text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition shadow-lg">
+                プラグインを見る
+            </a>
+        </div>
+    </section>
+
+    <!-- 特徴セクション -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h3 class="text-3xl font-bold text-center mb-12">3つの特徴</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-heart text-primary-600 text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">シンプル設計</h4>
+                    <p class="text-gray-600">1プラグイン = 1機能。複雑さを排除し、使いやすさを追求しました。</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-primary-600 text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">高品質</h4>
+                    <p class="text-gray-600">厳格なテストとバリデーション。安定した動作を保証します。</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-download text-primary-600 text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">簡単インストール</h4>
+                    <p class="text-gray-600">無償版は登録不要でZIPダウンロード。すぐに使い始められます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- プラグイン一覧セクション -->
+    <section id="plugins" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h3 class="text-3xl font-bold text-center mb-4">プラグイン一覧</h3>
+            <p class="text-center text-gray-600 mb-12">業務効率化を実現するプラグインを提供しています</p>
+
+            <!-- タブ切り替え -->
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex rounded-lg bg-white shadow-sm p-1">
+                    <button id="tab-free" class="px-6 py-2 rounded-md font-medium transition tab-active">
+                        無償プラグイン
+                    </button>
+                    <button id="tab-premium" class="px-6 py-2 rounded-md font-medium text-gray-600 hover:text-gray-900 transition">
+                        有償プラグイン
+                    </button>
+                </div>
+            </div>
+
+            <!-- 無償プラグイン一覧 -->
+            <div id="free-plugins" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- プラグインカード1: TabView -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-table text-blue-600 text-xl"></i>
+                        </div>
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-semibold">無償</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">TabView</h4>
+                    <p class="text-gray-600 mb-4 text-sm">レコード詳細画面をタブで整理。フィールドをカテゴリごとに分類して視認性を向上させます。</p>
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <i class="fas fa-download mr-2"></i>
+                        <span>v1.0.0</span>
+                        <span class="mx-2">•</span>
+                        <span>2026年1月</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <a href="plugins/tabview.html" class="flex-1 text-center bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition font-medium">
+                            詳細を見る
+                        </a>
+                        <a href="https://github.com/yourusername/kintone-plugins/releases/download/tabview-v1.0.0/tabview.zip"
+                           class="flex-1 text-center border border-primary-500 text-primary-500 px-4 py-2 rounded-md hover:bg-primary-50 transition font-medium"
+                           download>
+                            <i class="fas fa-download mr-1"></i> ZIP
+                        </a>
+                    </div>
+                </div>
+
+                <!-- プラグインカード2: サンプル（今後追加予定） -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6 opacity-60">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-calculator text-purple-600 text-xl"></i>
+                        </div>
+                        <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full font-semibold">Coming Soon</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Field Calculator</h4>
+                    <p class="text-gray-600 mb-4 text-sm">フィールド間の自動計算を設定。数式を入力するだけで複雑な計算を自動化します。</p>
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span>開発予定</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button disabled class="flex-1 bg-gray-300 text-gray-500 px-4 py-2 rounded-md cursor-not-allowed font-medium">
+                            近日公開
+                        </button>
+                    </div>
+                </div>
+
+                <!-- プラグインカード3: サンプル（今後追加予定） -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6 opacity-60">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-copy text-green-600 text-xl"></i>
+                        </div>
+                        <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full font-semibold">Coming Soon</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Record Copy</h4>
+                    <p class="text-gray-600 mb-4 text-sm">レコードを一括コピー。条件を指定して複数レコードを効率的に複製します。</p>
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span>開発予定</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button disabled class="flex-1 bg-gray-300 text-gray-500 px-4 py-2 rounded-md cursor-not-allowed font-medium">
+                            近日公開
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 有償プラグイン一覧（将来用） -->
+            <div id="premium-plugins" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="col-span-full text-center py-12">
+                    <i class="fas fa-star text-yellow-400 text-5xl mb-4"></i>
+                    <h4 class="text-2xl font-bold mb-3">有償プラグイン 準備中</h4>
+                    <p class="text-gray-600 mb-6">より高度な機能を持つ有償プラグインを準備中です。</p>
+                    <a href="#contact" class="inline-block bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition font-medium">
+                        リリース通知を希望する
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aboutセクション -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center">
+                <h3 class="text-3xl font-bold mb-6">このプロジェクトについて</h3>
+                <p class="text-gray-600 text-lg mb-6">
+                    kintoneをより便利に使うためのプラグインを個人開発しています。
+                    ユーザーファーストの設計で、シンプルで高品質なプラグインを提供することを目指しています。
+                </p>
+                <p class="text-gray-600 text-lg mb-6">
+                    無償プラグインはGitHubで公開しており、自由にダウンロード・利用できます。
+                    将来的には、より高度な機能を持つ有償プラグインも提供予定です。
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="https://github.com/yourusername/kintone-plugins" target="_blank"
+                       class="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition font-medium inline-flex items-center">
+                        <i class="fab fa-github mr-2"></i> GitHubで見る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- お問い合わせセクション -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-2xl mx-auto text-center">
+                <h3 class="text-3xl font-bold mb-6">お問い合わせ</h3>
+                <p class="text-gray-600 mb-8">
+                    バグ報告、機能リクエスト、その他お問い合わせはGitHub Issuesにてお願いします。
+                </p>
+                <a href="https://github.com/yourusername/kintone-plugins/issues" target="_blank"
+                   class="inline-block bg-primary-500 text-white px-8 py-3 rounded-lg hover:bg-primary-600 transition font-medium">
+                    <i class="fab fa-github mr-2"></i> GitHub Issuesを開く
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-2">&copy; 2026 Sakaguchi Takaya. All rights reserved.</p>
+            <p class="text-sm text-gray-500">Made with <i class="fas fa-heart text-red-500"></i> for kintone users</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Plugin packages
+*.zip
+*.ppk
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Test coverage
+coverage/
+
+# Temporary files
+tmp/
+temp/
+
+# プラグイン固有のビルド成果物（各プラグインディレクトリの.gitignoreで管理）
+plugins/*/plugin/js/
+plugins/*/plugin/css/
+
+# CLAUDE.mdに記載されている通り、機密情報を含む可能性のあるファイル
+**/credentials.json
+**/secrets.*
+
+# 開発中のドキュメントのバックアップ
+**/*.md.bak
