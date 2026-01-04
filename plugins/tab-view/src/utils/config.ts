@@ -7,17 +7,18 @@ export const getConfig = (pluginId: string): PluginConfig => {
   const config = kintone.plugin.app.getConfig(pluginId);
 
   if (!config || !config.tabs) {
-    return { tabs: [], commonFields: [] };
+    return { tabs: [], commonFields: [], spaceFieldId: '' };
   }
 
   try {
     return {
       tabs: JSON.parse(config.tabs || '[]'),
       commonFields: JSON.parse(config.commonFields || '[]'),
+      spaceFieldId: config.spaceFieldId || '',
     };
   } catch (error) {
     console.error('設定の読み込みに失敗しました:', error);
-    return { tabs: [], commonFields: [] };
+    return { tabs: [], commonFields: [], spaceFieldId: '' };
   }
 };
 
@@ -30,6 +31,7 @@ export const setConfig = (pluginId: string, config: PluginConfig): Promise<void>
       const configData = {
         tabs: JSON.stringify(config.tabs),
         commonFields: JSON.stringify(config.commonFields || []),
+        spaceFieldId: config.spaceFieldId || '',
       };
 
       kintone.plugin.app.setConfig(configData, () => {

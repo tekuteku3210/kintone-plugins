@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Tab, PluginConfig, KintoneField } from '@/types';
 import { getConfig, setConfig, generateId } from '@/utils/config';
 import { validateTabLabel, validateTabLimit, validateFields } from '@/utils/validation';
-import { getAppFields } from '@/utils/kintone';
+import { getAppFields, getSpaceFields } from '@/utils/kintone';
 import TabEditor from './components/TabEditor';
 import TabList from './components/TabList';
 
@@ -12,6 +12,8 @@ const MAX_FREE_TABS = 5;
 const App: React.FC = () => {
   const [tabs, setTabs] = useState<Tab[]>([]);
   const [commonFields, setCommonFields] = useState<string[]>([]);
+  const [spaceFieldId, setSpaceFieldId] = useState<string>('');
+  const [spaceFields, setSpaceFields] = useState<{ id: string; label: string }[]>([]);
   const [fields, setFields] = useState<Record<string, KintoneField>>({});
   const [editingTab, setEditingTab] = useState<Tab | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -24,9 +26,14 @@ const App: React.FC = () => {
         const config = getConfig(PLUGIN_ID);
         setTabs(config.tabs || []);
         setCommonFields(config.commonFields || []);
+        setSpaceFieldId(config.spaceFieldId || '');
 
-        const appFields = await getAppFields();
+        const [appFields, spaces] = await Promise.all([
+          getAppFields(),
+          getSpaceFields(),
+        ]);
         setFields(appFields);
+        setSpaceFields(spaces);
       } catch (err) {
         setError('設定の読み込みに失敗しました。ページを再読み込みしてください。');
         console.error(err);
@@ -109,6 +116,12 @@ const App: React.FC = () => {
 
   // 設定を保存
   const handleSave = async () => {
+    // スペースフィールドが選択されているか確認
+    if (!spaceFieldId) {
+      setError('タブ表示位置のスペースフィールドを選択してください');
+      return;
+    }
+
     // タブが1つもない場合は警告
     if (tabs.length === 0) {
       setError('タブを1つ以上追加してください');
@@ -123,7 +136,7 @@ const App: React.FC = () => {
     }
 
     try {
-      const config: PluginConfig = { tabs, commonFields };
+      const config: PluginConfig = { tabs, commonFields, spaceFieldId };
       await setConfig(PLUGIN_ID, config);
       alert('設定を保存しました');
       window.location.href = `/k/admin/app/${kintone.app.getId()}/plugin/`;
@@ -157,6 +170,44 @@ const App: React.FC = () => {
         <p className="info-box-text">
           無料プランでは最大{MAX_FREE_TABS}タブまで作成できます（現在: {tabs.length}/{MAX_FREE_TABS}）
         </p>
+      </div>
+
+      {/* スペースフィールド設定 */}
+      <div className="mb-6 p-4 bg-white border border-gray-200 rounded-lg">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          タブ表示位置のスペースフィールド <span className="text-red-500">*</span>
+        </label>
+        {spaceFields.length === 0 ? (
+          <div className="p-4 bg-yellow-50 border border-yellow-200 rounded">
+            <p className="text-sm text-yellow-800 mb-2">⚠️ スペースフィールドが見つかりません</p>
+            <p className="text-xs text-yellow-700">
+              kintoneアプリのフォーム設定で「スペース」フィールドを追加し、要素IDを設定してください。
+            </p>
+          </div>
+        ) : (
+          <>
+            <select
+              value={spaceFieldId}
+              onChange={(e) => {
+                setSpaceFieldId(e.target.value);
+                setError(null);
+              }}
+              className={`w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                !spaceFieldId ? 'border-red-300 bg-red-50' : 'border-gray-300'
+              }`}
+            >
+              <option value="">-- スペースフィールドを選択してください --</option>
+              {spaceFields.map((space) => (
+                <option key={space.id} value={space.id}>
+                  {space.label}
+                </option>
+              ))}
+            </select>
+            <p className="text-xs text-gray-500 mt-1">
+              タブを表示したい位置に配置したスペースフィールドを選択してください。
+            </p>
+          </>
+        )}
       </div>
 
       {/* エラーメッセージ */}

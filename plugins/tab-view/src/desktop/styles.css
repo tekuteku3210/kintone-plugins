@@ -1,55 +1,69 @@
-@tailwind base;
+/* Tailwind CSSのbaseは除外してグローバルリセットを防ぐ */
 @tailwind components;
 @tailwind utilities;
 
+/* タブルート要素 - スペースフィールド内に限定 */
+/* レコード詳細・編集・作成画面でのみ適用 */
+.gaia-argoui-app-show-pager #tabview-root,
+.gaia-argoui-app-edit-pager #tabview-root,
+.gaia-argoui-app-create-pager #tabview-root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 /* タブコンテナ */
-.tabview-container {
-  @apply mb-6;
+#tabview-root .tabview-container {
+  @apply mb-6 mt-4;
+  position: relative;
+  z-index: 1;
 }
 
 /* タブヘッダー */
-.tabview-header {
+#tabview-root .tabview-header {
   @apply flex border-b-2 border-gray-200 mb-6;
 }
 
 /* タブボタン */
-.tabview-tab {
+#tabview-root .tabview-tab {
   @apply px-6 py-3 text-sm font-medium rounded-t-lg border-b-4 border-transparent transition-all duration-200 cursor-pointer;
 }
 
-.tabview-tab:hover:not(.active) {
+#tabview-root .tabview-tab:hover:not(.active) {
   @apply bg-gray-50 text-gray-900;
 }
 
-.tabview-tab.active {
+#tabview-root .tabview-tab.active {
   @apply bg-blue-50 text-blue-600 border-blue-500;
 }
 
 /* タブコンテンツ */
-.tabview-content {
+#tabview-root .tabview-content {
   @apply transition-opacity duration-200;
 }
 
-.tabview-content.hidden {
+#tabview-root .tabview-content.hidden {
   display: none;
 }
 
 /* エラー表示 */
-.tabview-error {
+#tabview-root .tabview-error {
   @apply bg-red-50 border-l-4 border-red-500 p-4 rounded;
 }
 
-.tabview-error-text {
+#tabview-root .tabview-error-text {
   @apply text-red-800 text-sm;
 }
 
 /* レスポンシブ対応 */
 @media (max-width: 767px) {
-  .tabview-header {
+  #tabview-root .tabview-header {
     @apply flex-col;
   }
 
-  .tabview-tab {
+  #tabview-root .tabview-tab {
     @apply w-full text-left rounded-none border-b-2;
   }
 }

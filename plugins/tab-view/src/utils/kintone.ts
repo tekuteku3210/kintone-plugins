@@ -10,6 +10,45 @@ const stripHtmlTags = (html: string): string => {
 };
 
 /**
+ * アプリ内のスペースフィールド一覧を取得
+ */
+export const getSpaceFields = async (): Promise<{ id: string; label: string }[]> => {
+  try {
+    const appId = kintone.app.getId();
+    if (!appId) {
+      throw new Error('アプリIDを取得できませんでした');
+    }
+
+    const layoutResp = await kintone.api(
+      kintone.api.url('/k/v1/app/form/layout', true),
+      'GET',
+      { app: appId }
+    );
+
+    const spaceFields: { id: string; label: string }[] = [];
+
+    // レイアウトからスペースフィールドを抽出
+    layoutResp.layout?.forEach((layout: any) => {
+      if (layout.type === 'ROW') {
+        layout.fields?.forEach((field: any) => {
+          if (field.type === 'SPACER' && field.elementId) {
+            spaceFields.push({
+              id: field.elementId,
+              label: field.elementId,
+            });
+          }
+        });
+      }
+    });
+
+    return spaceFields;
+  } catch (error) {
+    console.error('スペースフィールドの取得に失敗しました:', error);
+    throw error;
+  }
+};
+
+/**
  * アプリのフィールド情報を取得（レイアウト順）
  */
 export const getAppFields = async (): Promise<Record<string, KintoneField>> => {

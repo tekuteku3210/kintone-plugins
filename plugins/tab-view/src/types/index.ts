@@ -22,6 +22,8 @@ export interface PluginConfig {
   tabs: Tab[];
   /** すべてのタブで表示するフィールド */
   commonFields?: string[];
+  /** タブ表示に使用するスペースフィールドの要素ID */
+  spaceFieldId?: string;
 }
 
 /**
