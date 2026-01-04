@@ -52,6 +52,7 @@ plugins/*/plugin/css/
 docs/tickets/
 
 # 開発用ドキュメント（プライベート）
+CLAUDE.md
 docs/competitive-analysis.md
 docs/design-review.md
 docs/development-progress.md

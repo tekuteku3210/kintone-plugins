@@ -1,235 +1,107 @@
-# kintone プラグイン開発プロジェクト
+# kintone Plugins
 
-kintoneプラグインを複数開発し、最終的には有償販売を目指すプロジェクトです。
+kintoneをもっと便利にする、シンプルで高品質なプラグインを提供しています。
 
-**開始日**: 2026年1月4日
-**現在のフェーズ**: Phase 8 - テスト準備完了
-
----
-
-## 📁 プロジェクト構成
-
-```
-kintone-plugins/
-├── CLAUDE.md                 # プロジェクト要件定義
-├── README.md                 # プロジェクト概要（本ファイル）
-├── docs/                     # ドキュメント
-│   ├── competitive-analysis.md      # 競合分析
-│   ├── ribbit-code-analysis.md      # Ribbitコード分析
-│   ├── design-review.md             # UI/UX設計レビュー
-│   ├── ui-mockup.md                 # UIモックアップ
-│   ├── development-progress.md      # 開発進捗
-│   ├── testing-guide.md             # テストガイド
-│   ├── quick-start.md               # クイックスタートガイド
-│   └── tickets/
-│       └── 001_tab-view_initial-release.md  # チケット管理
-└── plugins/                  # プラグイン本体
-    └── tab-view/             # TabViewプラグイン
-        ├── src/              # ソースコード
-        ├── plugin/           # ビルド後のファイル
-        ├── plugin.zip        # パッケージ済みプラグイン (108KB)
-        ├── package.json
-        ├── tsconfig.json
-        ├── webpack.config.js
-        └── README.md
-```
+🌐 **公式サイト**: https://tekuteku3210.github.io/kintone-plugins/
 
 ---
 
-## 🚀 プラグイン一覧
+## 📦 プラグイン一覧
 
-### 1. TabView（タブビュー）
+### タブ表示プラグイン（TabView）
 
-**ステータス**: ✅ Phase 7完了（テスト準備完了）
-**説明**: kintoneのレコード詳細画面をタブで整理し、見やすく表示するプラグイン
+**バージョン**: v1.0.0
+**ライセンス**: MIT License（無償・商用利用可）
+**リリース日**: 2026年1月
+
+kintoneのレコード詳細画面をタブで整理し、見やすく表示するプラグインです。
 
 **主な機能**:
 - 水平タブUIで情報を整理
-- 最大5タブまで無料で利用可能
-- ドラッグ&ドロップ（予定）で直感的に設定
+- 最大5タブまで作成可能
+- タブの色とアイコンをカスタマイズ
+- プレビュー機能で設定を事前確認
 - レスポンシブデザイン対応
 
-**技術スタック**:
-- TypeScript
-- React 18
-- Tailwind CSS
-- webpack
+**ダウンロード**:
+- [最新版をダウンロード](https://github.com/tekuteku3210/kintone-plugins/releases/latest)
 
-**ドキュメント**:
+**詳細**:
+- [プラグインの詳細](https://tekuteku3210.github.io/kintone-plugins/plugins/tabview.html)
 - [プラグインREADME](./plugins/tab-view/README.md)
-- [開発進捗](./docs/development-progress.md)
-- [テストガイド](./docs/testing-guide.md)
-- [クイックスタートガイド](./docs/quick-start.md)
-
-**次のステップ**:
-1. kintone開発環境でテスト
-2. バグ修正
-3. GitHubリポジトリ公開
-4. kintone プラグインマーケットへ申請
 
 ---
 
-## 📖 ドキュメント
+## 🚀 インストール方法
 
-### プロジェクト全体
+1. **ダウンロード**: 上記のリンクから`tab-view-plugin.zip`をダウンロード
+2. **アップロード**: kintoneの「設定」→「プラグイン」→「読み込む」からZIPファイルをアップロード
+3. **追加**: 対象アプリの「設定」→「プラグイン」→「追加」からプラグインを選択
+4. **設定**: プラグインの設定画面でタブを作成
 
-- [CLAUDE.md](./CLAUDE.md) - プロジェクト要件定義
-  - 開発方針・ルール
-  - 技術スタック
-  - UI/UXデザインガイドライン（Sociomedia HIG準拠）
-  - コーディング規約
-
-### TabView プラグイン
-
-- [チケット001](./docs/tickets/001_tab-view_initial-release.md) - 要件定義
-- [競合分析](./docs/competitive-analysis.md) - 市場調査
-- [Ribbitコード分析](./docs/ribbit-code-analysis.md) - 技術調査
-- [UI/UXモックアップ](./docs/ui-mockup.md) - デザイン設計
-- [設計レビュー](./docs/design-review.md) - Sociomedia HIG準拠チェック
-- [開発進捗](./docs/development-progress.md) - 開発状況
-- [テストガイド](./docs/testing-guide.md) - テスト手順（18ケース）
-- [クイックスタートガイド](./docs/quick-start.md) - 5分で試せるガイド
+詳しい手順は[公式サイト](https://tekuteku3210.github.io/kintone-plugins/plugins/tabview.html)をご覧ください。
 
 ---
 
-## 🛠️ 開発環境
+## 🛠️ 開発者向け情報
 
-### 必要なツール
+### リポジトリ構成
 
-- Node.js 20.x以上
-- npm 9.x以上
-- Git
-- VSCode（推奨）
+```
+kintone-plugins/
+├── plugins/
+│   └── tab-view/          # TabViewプラグイン
+│       ├── src/           # TypeScript + React
+│       ├── plugin/        # ビルド後のファイル
+│       └── README.md
+└── docs/                  # GitHub Pages（公式サイト）
+```
 
-### セットアップ
+### ビルド方法
 
 ```bash
-# リポジトリをクローン
-git clone <repository-url>
-cd kintone-plugins
-
-# TabViewプラグインのセットアップ
+# セットアップ
 cd plugins/tab-view
 npm install
-
-# 開発モード（ファイル監視）
-npm run dev
 
 # ビルド
 npm run build
 
 # パッケージング
 npm run package
-
-# kintoneにアップロード
-npm run upload -- --domain your-domain.cybozu.com
 ```
 
----
+### 技術スタック
 
-## 🎯 開発方針
-
-### 基本原則
-
-1. **ユーザーファースト**: 使いやすさを最優先
-2. **シンプル設計**: 1プラグイン = 1機能
-3. **高品質**: バグのない安定したプラグイン
-4. **ドキュメント重視**: READMEやヘルプを充実
-
-### デザインガイドライン
-
-- **Sociomedia HIG 100項目**準拠
-- Apple/Google/Microsoft HIG参照
-- WCAG AA基準対応
-
-### コーディング規約
-
-- **命名規則**:
-  - 変数・関数: camelCase
-  - クラス・型: PascalCase
-  - 定数: UPPER_SNAKE_CASE
-- **インデント**: 2スペース
-- **クォート**: シングルクォート
-- **型定義**: TypeScriptで必ず型を明示
-
----
-
-## 📊 開発状況
-
-### TabView プラグイン
-
-| Phase | 内容 | ステータス | 完了率 |
-|-------|------|-----------|--------|
-| 1 | 環境構築 | ✅ 完了 | 100% |
-| 2 | 型定義・ユーティリティ | ✅ 完了 | 100% |
-| 3 | 設定画面 | ✅ 完了 | 100% |
-| 4 | レコード画面 | ✅ 完了 | 100% |
-| 5 | ビルド | ✅ 完了 | 100% |
-| 6 | パッケージング | ✅ 完了 | 100% |
-| 7 | テストドキュメント | ✅ 完了 | 100% |
-| 8 | テスト | ⏳ 準備完了 | 0% |
-| 9 | リリース準備 | ⏸️ 未着手 | 0% |
-
-**総開発時間**: 約4時間（2026年1月4日）
-
----
-
-## 🧪 テスト
-
-### クイックスタート
-
-1. [クイックスタートガイド](./docs/quick-start.md)を参照
-2. プラグインをインストール（`plugins/tab-view/plugin.zip`）
-3. 5分で動作確認
-
-### 詳細テスト
-
-1. [テストガイド](./docs/testing-guide.md)を参照
-2. 18個のテストケースを実施
-3. 結果を記録
+- TypeScript
+- React 18
+- Tailwind CSS
+- webpack
 
 ---
 
 ## 📝 今後の予定
 
-### 短期（1-2週間）
-
-- [ ] TabViewプラグインのテスト実施
-- [ ] バグ修正
-- [ ] GitHubリポジトリ公開
-
-### 中期（1-2ヶ月）
-
-- [ ] TabViewプラグインをkintone プラグインマーケットに申請
-- [ ] 2個目のプラグイン企画・開発
-- [ ] 3個目のプラグイン企画・開発
-
-### 長期（3-6ヶ月）
-
-- [ ] 無償プラグイン 3-5個リリース
-- [ ] ユーザーフィードバック収集
-- [ ] 有償プラグインの企画
+- [ ] 2個目のプラグイン開発
+- [ ] 3個目のプラグイン開発
+- [ ] 有償プラグインの提供
 
 ---
 
-## 🤝 コントリビューション
+## 🤝 サポート
 
-現在はソロプロジェクトですが、将来的にはオープンソース化を検討しています。
+バグ報告や機能リクエストは、[GitHub Issues](https://github.com/tekuteku3210/kintone-plugins/issues)にてお願いします。
 
 ---
 
 ## 📄 ライセンス
 
-MIT License
+MIT License - 無償・商用利用可
 
 ---
 
-## 📞 お問い合わせ
+## 🔗 リンク
 
-- GitHub: https://github.com/tekuteku3210/kintone-plugins
-- Issues: https://github.com/tekuteku3210/kintone-plugins/issues
-
----
-
-**プロジェクト開始日**: 2026年1月4日
-**最終更新日**: 2026年1月4日
+- **公式サイト**: https://tekuteku3210.github.io/kintone-plugins/
+- **GitHub**: https://github.com/tekuteku3210/kintone-plugins
+- **Issues**: https://github.com/tekuteku3210/kintone-plugins/issues
