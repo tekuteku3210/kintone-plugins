@@ -749,7 +749,7 @@ plugins/tab-view/
 
 **構成**:
 ```
-website/
+docs/                       # GitHub Pages公開ディレクトリ
 ├── index.html              # トップページ（プラグイン一覧）
 ├── plugins/
 │   └── tabview.html        # TabViewプラグイン詳細ページ
@@ -783,10 +783,10 @@ website/
    - スムーズスクロール・フェードインアニメーション
    - アクセシビリティ対応（ARIA、キーボード操作）
 
-#### デプロイ方法
-1. GitHubリポジトリに`website/`ディレクトリをプッシュ
-2. Settings → Pages → Source: `main`ブランチ → Folder: `/docs`（または`/`）
-3. 数分後に`https://yourusername.github.io/kintone-plugins/`で公開
+#### デプロイ方法（完了済み）
+1. ✅ GitHubリポジトリ作成: https://github.com/tekuteku3210/kintone-plugins
+2. ✅ GitHub Pages有効化: `main`ブランチ → Folder: `/docs`
+3. ✅ 公開URL: https://tekuteku3210.github.io/kintone-plugins/
 
 #### プラグインリリース手順
 1. プラグインをビルド・パッケージング
@@ -794,7 +794,7 @@ website/
 3. ZIPファイルをアップロード
 4. WEBサイトのダウンロードリンクを更新
 
-詳細は[website/README.md](website/README.md)を参照。
+詳細は[docs/README.md](docs/README.md)を参照。
 
 #### 今後の拡張案
 - [ ] Google Analyticsでアクセス解析
