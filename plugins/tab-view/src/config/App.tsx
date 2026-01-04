@@ -5,7 +5,6 @@ import { validateTabLabel, validateTabLimit, validateFields } from '@/utils/vali
 import { getAppFields } from '@/utils/kintone';
 import TabEditor from './components/TabEditor';
 import TabList from './components/TabList';
-import TabPreview from './components/TabPreview';
 
 const PLUGIN_ID = kintone.$PLUGIN_ID;
 const MAX_FREE_TABS = 5;
@@ -59,23 +58,26 @@ const App: React.FC = () => {
     setError(null);
   };
 
-  // タブを更新
+  // タブを更新（自動保存）
   const handleUpdateTab = (updatedTab: Tab) => {
-    const labelError = validateTabLabel(updatedTab.label, tabs, updatedTab.id);
-    if (labelError) {
-      setError(labelError.message);
-      return;
+    // ラベルのバリデーション（タブ名変更時のみ）
+    const existingTab = tabs.find((t) => t.id === updatedTab.id);
+    if (existingTab && existingTab.label !== updatedTab.label) {
+      const labelError = validateTabLabel(updatedTab.label, tabs, updatedTab.id);
+      if (labelError) {
+        setError(labelError.message);
+        return;
+      }
     }
 
-    const fieldsError = validateFields(updatedTab.fields);
-    if (fieldsError) {
-      setError(fieldsError.message);
-      return;
-    }
-
+    // タブを更新
     setTabs(tabs.map((tab) => (tab.id === updatedTab.id ? updatedTab : tab)));
-    setEditingTab(null);
     setError(null);
+
+    // 編集中のタブも更新（タブ名変更時に表示を同期）
+    if (editingTab?.id === updatedTab.id) {
+      setEditingTab(updatedTab);
+    }
   };
 
   // タブを削除
@@ -107,6 +109,19 @@ const App: React.FC = () => {
 
   // 設定を保存
   const handleSave = async () => {
+    // タブが1つもない場合は警告
+    if (tabs.length === 0) {
+      setError('タブを1つ以上追加してください');
+      return;
+    }
+
+    // すべてのタブにフィールドが設定されているか確認
+    const emptyTabs = tabs.filter((tab) => tab.fields.length === 0);
+    if (emptyTabs.length > 0) {
+      setError(`「${emptyTabs.map((t) => t.label).join('」「')}」タブにフィールドが設定されていません`);
+      return;
+    }
+
     try {
       const config: PluginConfig = { tabs, commonFields };
       await setConfig(PLUGIN_ID, config);
@@ -156,21 +171,21 @@ const App: React.FC = () => {
         tabs={tabs}
         activeTabId={editingTab?.id || null}
         onEdit={setEditingTab}
+        onUpdate={handleUpdateTab}
         onDelete={handleDeleteTab}
         onMove={handleMoveTab}
         onAdd={handleAddTab}
         maxTabs={MAX_FREE_TABS}
       />
 
-      {/* 選択したタブのプレビュー＋編集 */}
+      {/* 選択したタブのフィールド設定 */}
       {editingTab && (
         <div className="mt-6">
           <TabEditor
             tab={editingTab}
             fields={fields}
             allTabs={tabs}
-            onSave={handleUpdateTab}
-            onCancel={() => setEditingTab(null)}
+            onUpdate={handleUpdateTab}
           />
         </div>
       )}

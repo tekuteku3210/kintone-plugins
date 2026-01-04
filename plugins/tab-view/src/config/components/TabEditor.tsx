@@ -5,56 +5,56 @@ interface TabEditorProps {
   tab: Tab;
   fields: Record<string, KintoneField>;
   allTabs: Tab[];
-  onSave: (tab: Tab) => void;
-  onCancel: () => void;
+  onUpdate: (tab: Tab) => void;
 }
 
-const TabEditor: React.FC<TabEditorProps> = ({ tab, fields, allTabs, onSave, onCancel }) => {
-  const [label, setLabel] = useState(tab.label);
-  const [icon, setIcon] = useState(tab.icon || '');
-  const [color, setColor] = useState(tab.color || '#3b82f6');
+const TabEditor: React.FC<TabEditorProps> = ({ tab, fields, allTabs, onUpdate }) => {
   const [selectedFields, setSelectedFields] = useState<string[]>(tab.fields);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    setLabel(tab.label);
-    setIcon(tab.icon || '');
-    setColor(tab.color || '#3b82f6');
     setSelectedFields(tab.fields);
-  }, [tab]);
+  }, [tab.id, tab.fields]);
 
   const handleToggleField = (fieldCode: string) => {
-    if (selectedFields.includes(fieldCode)) {
-      setSelectedFields(selectedFields.filter((f) => f !== fieldCode));
-    } else {
-      setSelectedFields([...selectedFields, fieldCode]);
-    }
-  };
+    const newSelectedFields = selectedFields.includes(fieldCode)
+      ? selectedFields.filter((f) => f !== fieldCode)
+      : [...selectedFields, fieldCode];
 
-  const handleSave = () => {
+    setSelectedFields(newSelectedFields);
+
+    // 即座に親コンポーネントに反映（自動保存）
     const updatedTab: Tab = {
       ...tab,
-      label: label.trim(),
-      icon,
-      color,
-      fields: selectedFields,
+      fields: newSelectedFields,
     };
-    onSave(updatedTab);
+    onUpdate(updatedTab);
   };
 
-  // 他のタブで使用されているフィールドを取得
-  const fieldsUsedInOtherTabs = new Set<string>();
+  // フィールドがどのタブで使用されているかをマッピング
+  const fieldToTabsMap = new Map<string, string[]>();
   allTabs.forEach((t) => {
     if (t.id !== tab.id) {
-      t.fields.forEach((f) => fieldsUsedInOtherTabs.add(f));
+      t.fields.forEach((fieldCode) => {
+        if (!fieldToTabsMap.has(fieldCode)) {
+          fieldToTabsMap.set(fieldCode, []);
+        }
+        fieldToTabsMap.get(fieldCode)!.push(t.label);
+      });
     }
   });
 
-  // フィールドをフィルタリング（検索条件）
-  const filteredFields = Object.values(fields).filter((field) =>
-    field.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    field.code.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // フィールドをフィルタリング（検索条件 + 罫線を除外）
+  const filteredFields = Object.values(fields).filter((field) => {
+    // 罫線フィールドを除外
+    if (field.type === 'HR') return false;
+
+    // 検索条件
+    return (
+      field.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      field.code.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
 
   // フィールドをkintoneのレイアウト順に並べる
   const sortedFields = [...filteredFields].sort((a, b) => {
@@ -64,162 +64,124 @@ const TabEditor: React.FC<TabEditorProps> = ({ tab, fields, allTabs, onSave, onC
   });
 
   return (
-    <div className="mt-8 border-t pt-6">
-      <h2 className="text-lg font-semibold mb-4">タブ編集: {tab.label}</h2>
-
-      <div className="grid grid-cols-2 gap-6">
-        {/* タブ名 */}
-        <div>
-          <label htmlFor="tab-label" className="block text-sm font-medium text-gray-700 mb-2">
-            タブ名 <span className="text-red-500">*</span>
-          </label>
+    <div className="border rounded-lg bg-white shadow-sm">
+      <div className="px-6 py-4 border-b bg-gradient-to-r from-blue-50 to-blue-100 flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-blue-900">
+          {tab.label}
+          <span className="ml-2 text-sm font-normal text-blue-700">
+            ({selectedFields.length}個)
+          </span>
+        </h2>
+        {/* 検索ボックス */}
+        <div className="w-80">
           <input
-            id="tab-label"
             type="text"
-            value={label}
-            onChange={(e) => setLabel(e.target.value)}
-            maxLength={20}
-            placeholder="タブ名を入力（最大20文字）"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          />
-          <p className="text-xs text-gray-500 mt-1">{label.length} / 20 文字</p>
-        </div>
-
-        {/* アイコン */}
-        <div>
-          <label htmlFor="tab-icon" className="block text-sm font-medium text-gray-700 mb-2">
-            アイコン（オプション）
-          </label>
-          <input
-            id="tab-icon"
-            type="text"
-            value={icon}
-            onChange={(e) => setIcon(e.target.value)}
-            placeholder="絵文字またはアイコン名（例: 👤, user）"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="🔍 フィールドを検索..."
+            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
+      </div>
 
-        {/* タブの色 */}
-        <div>
-          <label htmlFor="tab-color" className="block text-sm font-medium text-gray-700 mb-2">
-            タブの色（オプション）
-          </label>
-          <div className="flex items-center gap-4">
-            <input
-              id="tab-color"
-              type="color"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-              className="h-10 w-20 rounded border border-gray-300 cursor-pointer"
-            />
-            <input
-              type="text"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-              placeholder="#3b82f6"
-              maxLength={7}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-            <button
-              type="button"
-              onClick={() => setColor('#3b82f6')}
-              className="px-3 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded"
-            >
-              リセット
-            </button>
-          </div>
-          <p className="text-xs text-gray-500 mt-1">タブの背景色を設定できます</p>
-        </div>
-
-        {/* フィールド選択 - 全幅で表示 */}
-        <div className="col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            表示するフィールド <span className="text-red-500">*</span>
-          </label>
-
-          {/* 検索ボックス */}
-          <div className="mb-3">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="🔍 フィールドを検索..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
+      <div className="p-4">
+        {/* フィールドリスト（プレビュー統合） */}
+        <div className="border border-gray-300 rounded-lg overflow-hidden">
+          {/* ヘッダー */}
+          <div className="bg-gray-50 px-4 py-2 border-b border-gray-300 flex items-center gap-3">
+            <div className="w-10 text-center text-xs font-medium text-gray-600">表示</div>
+            <div className="flex-1 text-xs font-medium text-gray-700">フィールド名（コード）</div>
+            <div className="w-24 text-xs font-medium text-gray-600 text-center">タイプ</div>
+            <div className="w-32 text-xs font-medium text-gray-600 text-center">使用状況</div>
           </div>
 
           {/* フィールドリスト */}
-          <div className="field-list max-h-96 overflow-y-auto border border-gray-200 rounded-md p-3">
+          <div className="max-h-[500px] overflow-y-auto">
             {sortedFields.length === 0 ? (
-              <p className="text-gray-500 text-center py-4">フィールドが見つかりませんでした</p>
+              <div className="p-8 text-center text-gray-500">
+                <p>フィールドが見つかりませんでした</p>
+                <p className="text-sm mt-2">検索条件を変更してください</p>
+              </div>
             ) : (
-              <div className="space-y-1">
-                {sortedFields.map((field) => {
-                  const isUsedInOtherTab = fieldsUsedInOtherTabs.has(field.code);
+              <div>
+                {sortedFields.map((field, index) => {
+                  const usedInTabs = fieldToTabsMap.get(field.code) || [];
                   const isSelected = selectedFields.includes(field.code);
 
                   return (
                     <label
                       key={field.code}
-                      className={`flex items-center px-3 py-2 rounded cursor-pointer transition-colors ${
+                      className={`flex items-center gap-3 px-4 py-2 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0 ${
                         isSelected
                           ? 'bg-blue-50 hover:bg-blue-100'
                           : 'hover:bg-gray-50'
                       }`}
                     >
-                      <input
-                        type="checkbox"
-                        checked={isSelected}
-                        onChange={() => handleToggleField(field.code)}
-                        className="mr-3 h-4 w-4 text-blue-500 focus:ring-blue-500 border-gray-300 rounded"
-                      />
-                      <span className="flex-1 text-sm">
-                        {field.label}
-                        <span className="text-gray-500 ml-2">({field.code})</span>
-                      </span>
-                      {isUsedInOtherTab && (
-                        <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded ml-2">
-                          他タブで使用中
+                      {/* チェックボックス */}
+                      <div className="w-10 flex justify-center">
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => handleToggleField(field.code)}
+                          className="h-4 w-4 text-blue-500 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                        />
+                      </div>
+
+                      {/* フィールド名とコード（1行に） */}
+                      <div className="flex-1 min-w-0">
+                        <span className={`text-sm font-medium ${isSelected ? 'text-blue-900' : 'text-gray-800'}`}>
+                          {field.label}
+                          {field.required && (
+                            <span className="text-red-500 ml-1">*</span>
+                          )}
                         </span>
-                      )}
+                        <span className="text-xs text-gray-500 ml-2">
+                          ({field.code})
+                        </span>
+                      </div>
+
+                      {/* フィールドタイプ */}
+                      <div className="w-24 text-center">
+                        <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-700 rounded">
+                          {getFieldTypeName(field.type)}
+                        </span>
+                      </div>
+
+                      {/* 使用状況 */}
+                      <div className="w-32 text-center">
+                        {usedInTabs.length > 0 ? (
+                          <div className="text-xs text-orange-700 bg-orange-50 px-2 py-0.5 rounded truncate" title={`使用中: ${usedInTabs.join(', ')}`}>
+                            {usedInTabs.join(', ')}
+                          </div>
+                        ) : (
+                          <span className="text-xs text-gray-400">-</span>
+                        )}
+                      </div>
                     </label>
                   );
                 })}
               </div>
             )}
           </div>
-
-          <div className="flex justify-between items-center mt-2">
-            <p className="text-xs text-gray-500">
-              選択中: {selectedFields.length} フィールド
-            </p>
-            <button
-              type="button"
-              onClick={() => setSelectedFields([])}
-              className="text-xs text-blue-600 hover:text-blue-800"
-            >
-              すべて選択解除
-            </button>
-          </div>
         </div>
 
-        {/* 保存・キャンセルボタン - 全幅で表示 */}
-        <div className="col-span-2 flex justify-end gap-4 pt-4 border-t mt-4">
-          <button onClick={onCancel} className="btn-secondary">
-            キャンセル
-          </button>
-          <button
-            onClick={handleSave}
-            disabled={!label.trim() || selectedFields.length === 0}
-            className={`${
-              !label.trim() || selectedFields.length === 0
-                ? 'bg-gray-300 text-gray-500 cursor-not-allowed px-6 py-3 rounded-md'
-                : 'btn-primary'
-            }`}
-          >
-            タブを保存
-          </button>
+        {/* フッター情報 */}
+        <div className="mt-3 flex justify-between items-center text-xs text-gray-600">
+          <div>
+            全{sortedFields.length}フィールド中 {selectedFields.length}個選択
+          </div>
+          {selectedFields.length > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedFields([]);
+                onUpdate({ ...tab, fields: [] });
+              }}
+              className="text-blue-600 hover:text-blue-800 text-xs"
+            >
+              すべて解除
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -229,23 +191,23 @@ const TabEditor: React.FC<TabEditorProps> = ({ tab, fields, allTabs, onSave, onC
 // フィールドタイプ名を取得
 const getFieldTypeName = (type: string): string => {
   const typeNames: Record<string, string> = {
-    SINGLE_LINE_TEXT: 'テキスト（1行）',
-    MULTI_LINE_TEXT: 'テキスト（複数行）',
-    RICH_TEXT: 'リッチテキスト',
+    SINGLE_LINE_TEXT: 'テキスト',
+    MULTI_LINE_TEXT: '複数行',
+    RICH_TEXT: 'リッチ',
     NUMBER: '数値',
     CALC: '計算',
-    RADIO_BUTTON: 'ラジオボタン',
-    CHECK_BOX: 'チェックボックス',
-    MULTI_SELECT: 'ドロップダウン（複数選択）',
-    DROP_DOWN: 'ドロップダウン',
+    RADIO_BUTTON: 'ラジオ',
+    CHECK_BOX: 'チェック',
+    MULTI_SELECT: '複数選択',
+    DROP_DOWN: 'ドロップ',
     DATE: '日付',
     TIME: '時刻',
     DATETIME: '日時',
     LINK: 'リンク',
     FILE: 'ファイル',
-    USER_SELECT: 'ユーザー選択',
-    ORGANIZATION_SELECT: '組織選択',
-    GROUP_SELECT: 'グループ選択',
+    USER_SELECT: 'ユーザー',
+    ORGANIZATION_SELECT: '組織',
+    GROUP_SELECT: 'グループ',
     SUBTABLE: 'テーブル',
     CREATOR: '作成者',
     MODIFIER: '更新者',
@@ -254,7 +216,6 @@ const getFieldTypeName = (type: string): string => {
     RECORD_NUMBER: 'レコード番号',
     GROUP: 'グループ',
     LABEL: 'ラベル',
-    HR: '罫線',
   };
 
   return typeNames[type] || type;

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack --mode development --watch",
-    "package": "kintone-plugin-packer plugin",
+    "package": "kintone-plugin-packer --ppk private.ppk plugin",
     "upload": "kintone-plugin-uploader plugin.zip",
     "deploy": "npm run build && npm run package"
   },
