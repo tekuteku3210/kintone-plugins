@@ -45,7 +45,7 @@
                     <li><a href="#plugins" class="text-gray-600 hover:text-primary-500 transition">プラグイン</a></li>
                     <li><a href="#about" class="text-gray-600 hover:text-primary-500 transition">について</a></li>
                     <li><a href="#contact" class="text-gray-600 hover:text-primary-500 transition">お問い合わせ</a></li>
-                    <li><a href="https://github.com/yourusername/kintone-plugins" target="_blank" class="text-gray-600 hover:text-primary-500 transition">
+                    <li><a href="https://github.com/tekuteku3210/kintone-plugins" target="_blank" class="text-gray-600 hover:text-primary-500 transition">
                         <i class="fab fa-github text-xl"></i>
                     </a></li>
                 </ul>
@@ -60,7 +60,7 @@
                     <li><a href="#plugins" class="block text-gray-600 hover:text-primary-500 transition">プラグイン</a></li>
                     <li><a href="#about" class="block text-gray-600 hover:text-primary-500 transition">について</a></li>
                     <li><a href="#contact" class="block text-gray-600 hover:text-primary-500 transition">お問い合わせ</a></li>
-                    <li><a href="https://github.com/yourusername/kintone-plugins" target="_blank" class="block text-gray-600 hover:text-primary-500 transition">
+                    <li><a href="https://github.com/tekuteku3210/kintone-plugins" target="_blank" class="block text-gray-600 hover:text-primary-500 transition">
                         GitHub <i class="fab fa-github"></i>
                     </a></li>
                 </ul>
@@ -72,40 +72,7 @@
     <section class="bg-gradient-to-r from-primary-500 to-primary-600 text-white py-20">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-4xl md:text-5xl font-bold mb-6">kintoneをもっと便利に</h2>
-            <p class="text-xl md:text-2xl mb-8 text-primary-50">シンプルで高品質なプラグインを無償・有償で提供</p>
-            <a href="#plugins" class="inline-block bg-white text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition shadow-lg">
-                プラグインを見る
-            </a>
-        </div>
-    </section>
-
-    <!-- 特徴セクション -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h3 class="text-3xl font-bold text-center mb-12">3つの特徴</h3>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center p-6">
-                    <div class="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-heart text-primary-600 text-2xl"></i>
-                    </div>
-                    <h4 class="text-xl font-semibold mb-3">シンプル設計</h4>
-                    <p class="text-gray-600">1プラグイン = 1機能。複雑さを排除し、使いやすさを追求しました。</p>
-                </div>
-                <div class="text-center p-6">
-                    <div class="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-shield-alt text-primary-600 text-2xl"></i>
-                    </div>
-                    <h4 class="text-xl font-semibold mb-3">高品質</h4>
-                    <p class="text-gray-600">厳格なテストとバリデーション。安定した動作を保証します。</p>
-                </div>
-                <div class="text-center p-6">
-                    <div class="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-download text-primary-600 text-2xl"></i>
-                    </div>
-                    <h4 class="text-xl font-semibold mb-3">簡単インストール</h4>
-                    <p class="text-gray-600">無償版は登録不要でZIPダウンロード。すぐに使い始められます。</p>
-                </div>
-            </div>
+            <p class="text-xl md:text-2xl text-primary-50">シンプルで高品質なプラグインを無償・有償で提供</p>
         </div>
     </section>
 
@@ -130,30 +97,38 @@
             <!-- 無償プラグイン一覧 -->
             <div id="free-plugins" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- プラグインカード1: TabView -->
-                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-table text-blue-600 text-xl"></i>
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden">
+                    <div class="relative">
+                        <img src="images/tabview-demo.gif"
+                             alt="タブ表示プラグインのデモ"
+                             class="w-full h-48 object-cover object-top border-b border-gray-200"
+                             loading="lazy">
+                        <span class="absolute top-3 right-3 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-semibold shadow-sm">無償</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="bg-blue-100 w-10 h-10 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-table text-blue-600 text-lg"></i>
+                            </div>
+                            <h4 class="text-xl font-bold">タブ表示プラグイン</h4>
                         </div>
-                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-semibold">無償</span>
-                    </div>
-                    <h4 class="text-xl font-bold mb-2">タブ表示プラグイン</h4>
-                    <p class="text-gray-600 mb-4 text-sm">レコード詳細画面をタブで整理。フィールドをカテゴリごとに分類して視認性を向上させます。</p>
-                    <div class="flex items-center text-sm text-gray-500 mb-4">
-                        <i class="fas fa-download mr-2"></i>
-                        <span>v1.0.0</span>
-                        <span class="mx-2">•</span>
-                        <span>2026年1月</span>
-                    </div>
-                    <div class="flex space-x-2">
-                        <a href="plugins/tabview.html" class="flex-1 text-center bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition font-medium">
-                            詳細を見る
-                        </a>
-                        <a href="https://github.com/tekuteku3210/kintone-plugins/releases/download/tab-view-v1.0.0/tab-view-plugin.zip"
-                           class="flex-1 text-center border border-primary-500 text-primary-500 px-4 py-2 rounded-md hover:bg-primary-50 transition font-medium"
-                           download>
-                            <i class="fas fa-download mr-1"></i> ZIP
-                        </a>
+                        <p class="text-gray-600 mb-4 text-sm">レコード詳細画面をタブで整理。フィールドをカテゴリごとに分類して視認性を向上させます。</p>
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fas fa-download mr-2"></i>
+                            <span>v1.0.0</span>
+                            <span class="mx-2">•</span>
+                            <span>2026年1月</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <a href="plugins/tabview.html" class="flex-1 text-center bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition font-medium">
+                                詳細を見る
+                            </a>
+                            <a href="https://github.com/tekuteku3210/kintone-plugins/releases/download/tab-view-v1.0.0/tab-view-plugin.zip"
+                               class="flex-1 text-center border border-primary-500 text-primary-500 px-4 py-2 rounded-md hover:bg-primary-50 transition font-medium"
+                               download>
+                                <i class="fas fa-download mr-1"></i> ZIP
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -228,7 +203,7 @@
                     将来的には、より高度な機能を持つ有償プラグインも提供予定です。
                 </p>
                 <div class="flex justify-center space-x-4">
-                    <a href="https://github.com/yourusername/kintone-plugins" target="_blank"
+                    <a href="https://github.com/tekuteku3210/kintone-plugins" target="_blank"
                        class="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition font-medium inline-flex items-center">
                         <i class="fab fa-github mr-2"></i> GitHubで見る
                     </a>
@@ -245,7 +220,7 @@
                 <p class="text-gray-600 mb-8">
                     バグ報告、機能リクエスト、その他お問い合わせはGitHub Issuesにてお願いします。
                 </p>
-                <a href="https://github.com/yourusername/kintone-plugins/issues" target="_blank"
+                <a href="https://github.com/tekuteku3210/kintone-plugins/issues" target="_blank"
                    class="inline-block bg-primary-500 text-white px-8 py-3 rounded-lg hover:bg-primary-600 transition font-medium">
                     <i class="fab fa-github mr-2"></i> GitHub Issuesを開く
                 </a>
