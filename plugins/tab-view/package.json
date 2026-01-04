@@ -17,7 +17,7 @@
     "ui",
     "レコード詳細"
   ],
-  "author": "Sakaguchi Takaya",
+  "author": "",
   "license": "MIT",
   "devDependencies": {
     "@kintone/dts-gen": "^9.0.0",
@@ -27,6 +27,7 @@
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10.4.16",
+    "canvas": "^3.2.0",
     "css-loader": "^6.8.1",
     "postcss": "^8.4.32",
     "postcss-loader": "^7.3.3",

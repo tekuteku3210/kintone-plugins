@@ -150,7 +150,7 @@ const App: React.FC = () => {
 
   return (
     <div className="container mx-auto p-6 max-w-7xl">
-      <h1 className="text-2xl font-bold mb-6">TabView プラグイン設定</h1>
+      <h1 className="text-2xl font-bold mb-6">タブ表示プラグイン 設定</h1>
 
       {/* 前提条件の表示 (#32準拠) */}
       <div className="info-box">

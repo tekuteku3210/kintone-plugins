@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "type": "APP",
   "name": {
-    "ja": "TabView - タブビュー",
-    "en": "TabView - Tab View for Records"
+    "ja": "タブ表示プラグイン",
+    "en": "Tab Display Plugin"
   },
   "description": {
     "ja": "レコード詳細画面をタブで整理し、見やすく表示します。",

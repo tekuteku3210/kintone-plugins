@@ -26,7 +26,11 @@
       "Bash(gh repo edit:*)",
       "Bash(gh api:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(node -e:*)",
+      "Bash(unzip:*)",
+      "Bash(gh release create:*)",
+      "Bash(git rm:*)"
     ]
   }
 }

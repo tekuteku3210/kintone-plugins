@@ -49,3 +49,13 @@ plugins/*/plugin/css/
 
 # 開発中のドキュメントのバックアップ
 **/*.md.bak
+docs/tickets/
+
+# 開発用ドキュメント（プライベート）
+docs/competitive-analysis.md
+docs/design-review.md
+docs/development-progress.md
+docs/quick-start.md
+docs/ribbit-code-analysis.md
+docs/testing-guide.md
+docs/ui-mockup.md

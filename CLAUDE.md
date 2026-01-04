@@ -2,7 +2,6 @@
 
 **最終更新日**: 2026年1月4日
 **バージョン**: 1.0
-**作成者**: Sakaguchi Takaya
 
 ---
 
@@ -606,7 +605,6 @@ npx @kintone/plugin-uploader plugin.zip --domain your-domain.cybozu.com
 
 **作成日**: YYYY-MM-DD
 **ステータス**: 企画中 / 開発中 / テスト中 / リリース済み
-**担当者**: Sakaguchi Takaya
 
 ## 概要
 {この機能の概要を1-2行で説明}

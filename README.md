@@ -2,7 +2,6 @@
 
 kintoneプラグインを複数開発し、最終的には有償販売を目指すプロジェクトです。
 
-**作成者**: Sakaguchi Takaya
 **開始日**: 2026年1月4日
 **現在のフェーズ**: Phase 8 - テスト準備完了
 
@@ -227,9 +226,8 @@ MIT License
 
 ## 📞 お問い合わせ
 
-- 作成者: Sakaguchi Takaya
-- GitHub: （準備中）
-- Email: （準備中）
+- GitHub: https://github.com/tekuteku3210/kintone-plugins
+- Issues: https://github.com/tekuteku3210/kintone-plugins/issues
 
 ---
 
