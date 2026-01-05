@@ -308,44 +308,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 手動お知らせデータを読み込み
-  async function fetchManualAnnouncements() {
-    try {
-      const response = await fetch('data/announcements.json');
-      if (!response.ok) {
-        console.warn('手動お知らせの取得に失敗しました');
-        return [];
-      }
-      return await response.json();
-    } catch (error) {
-      console.error('手動お知らせの取得エラー:', error);
-      return [];
-    }
-  }
-
-  // お知らせデータを読み込み（GitHubリリース + 手動お知らせ）
+  // お知らせデータを読み込み（GitHubリリースのみ）
+  // 将来的にGitHub Discussionsを追加する場合は、ここに統合ロジックを追加
   async function loadAnnouncements() {
     try {
-      // GitHubリリースと手動お知らせを並行取得
-      const [releaseAnnouncements, manualAnnouncements] = await Promise.all([
-        fetchGitHubReleases(),
-        fetchManualAnnouncements()
-      ]);
+      // GitHubリリースを取得
+      const announcements = await fetchGitHubReleases();
 
-      // 重複を除去（手動お知らせのIDが優先）
-      const manualIds = new Set(manualAnnouncements.map(a => a.id));
-      const uniqueReleases = releaseAnnouncements.filter(a => !manualIds.has(a.id));
-
-      // 統合してソート
-      const allAnnouncements = [...manualAnnouncements, ...uniqueReleases];
-      allAnnouncements.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      if (allAnnouncements.length === 0) {
-        throw new Error('お知らせがありません');
+      if (announcements.length === 0) {
+        announcementList.innerHTML = `
+          <div class="text-center text-gray-500 py-8">
+            <i class="fas fa-inbox text-5xl mb-4 opacity-50"></i>
+            <p class="text-lg">お知らせはまだありません</p>
+          </div>
+        `;
+        return;
       }
 
-      renderAnnouncements(allAnnouncements);
-      updateBadge(allAnnouncements);
+      renderAnnouncements(announcements);
+      updateBadge(announcements);
     } catch (error) {
       console.error('お知らせの読み込みに失敗しました:', error);
       announcementList.innerHTML = `
