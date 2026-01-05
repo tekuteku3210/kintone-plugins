@@ -97,4 +97,174 @@ document.addEventListener('DOMContentLoaded', () => {
       // gtag('event', 'download', { plugin_name: pluginName });
     });
   });
+
+  // お知らせ機能
+  const STORAGE_KEY = 'kintone-plugins-read-announcements';
+  const notificationBell = document.getElementById('notification-bell');
+  const notificationBadge = document.getElementById('notification-badge');
+  const announcementModal = document.getElementById('announcement-modal');
+  const closeModal = document.getElementById('close-modal');
+  const announcementList = document.getElementById('announcement-list');
+
+  // 既読お知らせIDを取得
+  function getReadAnnouncements() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    } catch (e) {
+      return [];
+    }
+  }
+
+  // 既読お知らせIDを保存
+  function saveReadAnnouncements(ids) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  }
+
+  // お知らせIDを既読にする
+  function markAsRead(id) {
+    const readIds = getReadAnnouncements();
+    if (!readIds.includes(id)) {
+      readIds.push(id);
+      saveReadAnnouncements(readIds);
+    }
+  }
+
+  // カテゴリごとの色とアイコンを取得
+  function getCategoryStyle(type) {
+    const styles = {
+      release: { color: 'text-blue-600', bg: 'bg-blue-100', icon: 'fa-rocket', label: 'リリース' },
+      feature: { color: 'text-green-600', bg: 'bg-green-100', icon: 'fa-star', label: '新機能' },
+      update: { color: 'text-yellow-600', bg: 'bg-yellow-100', icon: 'fa-wrench', label: '更新' },
+      notice: { color: 'text-purple-600', bg: 'bg-purple-100', icon: 'fa-bell', label: 'お知らせ' }
+    };
+    return styles[type] || styles.notice;
+  }
+
+  // お知らせを表示
+  function renderAnnouncements(announcements) {
+    const readIds = getReadAnnouncements();
+
+    if (announcements.length === 0) {
+      announcementList.innerHTML = `
+        <div class="text-center text-gray-500 py-8">
+          <i class="fas fa-inbox text-5xl mb-4 opacity-50"></i>
+          <p class="text-lg">お知らせはありません</p>
+        </div>
+      `;
+      return;
+    }
+
+    announcementList.innerHTML = announcements.map(item => {
+      const isRead = readIds.includes(item.id);
+      const style = getCategoryStyle(item.type);
+
+      return `
+        <div class="announcement-item relative mb-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer ${isRead ? 'opacity-60' : ''}"
+             data-id="${item.id}"
+             data-url="${item.url || '#'}">
+          ${!isRead ? '<span class="absolute left-2 top-1/2 -translate-y-1/2 w-2 h-2 bg-blue-500 rounded-full"></span>' : ''}
+          <div class="flex items-start ${!isRead ? 'ml-4' : ''}">
+            <div class="${style.bg} ${style.color} w-10 h-10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+              <i class="fas ${style.icon}"></i>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center mb-1">
+                <span class="${style.bg} ${style.color} text-xs px-2 py-1 rounded-full font-semibold mr-2">${style.label}</span>
+                <span class="text-xs text-gray-500">${item.date}</span>
+              </div>
+              <h3 class="font-bold text-gray-900 mb-1">${item.title}</h3>
+              <p class="text-sm text-gray-600 whitespace-pre-line">${item.description}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // お知らせアイテムのクリックイベント
+    document.querySelectorAll('.announcement-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const id = item.getAttribute('data-id');
+        const url = item.getAttribute('data-url');
+
+        markAsRead(id);
+        updateBadge(announcements);
+
+        // URLがあれば遷移
+        if (url && url !== '#') {
+          window.open(url, '_blank');
+        }
+
+        // 既読スタイルを適用
+        item.classList.add('opacity-60');
+        const dot = item.querySelector('.bg-blue-500');
+        if (dot) dot.remove();
+      });
+    });
+  }
+
+  // バッジを更新
+  function updateBadge(announcements) {
+    const readIds = getReadAnnouncements();
+    const unreadCount = announcements.filter(a => !readIds.includes(a.id)).length;
+
+    if (unreadCount > 0) {
+      notificationBadge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+      notificationBadge.classList.remove('hidden');
+      notificationBadge.classList.add('flex');
+    } else {
+      notificationBadge.classList.add('hidden');
+      notificationBadge.classList.remove('flex');
+    }
+  }
+
+  // お知らせデータを読み込み
+  async function loadAnnouncements() {
+    try {
+      const response = await fetch('data/announcements.json');
+      if (!response.ok) throw new Error('Failed to load announcements');
+      const announcements = await response.json();
+
+      // 日付の新しい順にソート
+      announcements.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      renderAnnouncements(announcements);
+      updateBadge(announcements);
+    } catch (error) {
+      console.error('お知らせの読み込みに失敗しました:', error);
+      announcementList.innerHTML = `
+        <div class="text-center text-red-500 py-8">
+          <i class="fas fa-exclamation-triangle text-5xl mb-4"></i>
+          <p class="text-lg">お知らせの読み込みに失敗しました</p>
+        </div>
+      `;
+    }
+  }
+
+  // モーダルを開く
+  if (notificationBell && announcementModal) {
+    notificationBell.addEventListener('click', () => {
+      announcementModal.classList.remove('hidden');
+      announcementModal.classList.add('flex');
+      loadAnnouncements();
+    });
+  }
+
+  // モーダルを閉じる
+  if (closeModal && announcementModal) {
+    closeModal.addEventListener('click', () => {
+      announcementModal.classList.add('hidden');
+      announcementModal.classList.remove('flex');
+    });
+
+    // 背景クリックで閉じる
+    announcementModal.addEventListener('click', (e) => {
+      if (e.target === announcementModal) {
+        announcementModal.classList.add('hidden');
+        announcementModal.classList.remove('flex');
+      }
+    });
+  }
+
+  // ページ読み込み時にバッジを更新
+  loadAnnouncements();
 });

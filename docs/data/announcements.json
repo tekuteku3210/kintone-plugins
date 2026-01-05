@@ -1,0 +1,50 @@
+[
+  {
+    "id": "announcement-2026-01-05-v1.1.0",
+    "type": "release",
+    "title": "v2026.01.05",
+    "description": "- 記事カードに記事の追加日時を表示\n- OGP設定の更新\n- 未読バッジの数値が更新されるように\n- センシティブなコンテンツのブロック機能を追加\n- アーカイブの検索結果にも「未読に戻す」と「削除」のボタンを追加",
+    "date": "2026-01-05",
+    "url": null
+  },
+  {
+    "id": "announcement-2026-01-05-login",
+    "type": "update",
+    "title": "🔒 ログインセッションを延長しました",
+    "description": "一度読了した記事を「未読に戻す」ボタンを実装しました。",
+    "date": "2026-01-05",
+    "url": null
+  },
+  {
+    "id": "announcement-2026-01-05-share",
+    "type": "update",
+    "title": "🔗 外部から共有する際に確認画面を挟まないようにしました",
+    "description": "外部から共有する際に確認画面を挟まないようにしました",
+    "date": "2026-01-05",
+    "url": null
+  },
+  {
+    "id": "announcement-2026-01-04-unread",
+    "type": "feature",
+    "title": "♻️「未読に戻す」を実装しました",
+    "description": "一度読了した記事を「未読に戻す」ボタンを実装しました。",
+    "date": "2026-01-04",
+    "url": null
+  },
+  {
+    "id": "announcement-2026-01-04-v1.0.4",
+    "type": "release",
+    "title": "v2026.01.04",
+    "description": "記事登録数の上限を緩和しました",
+    "date": "2026-01-04",
+    "url": null
+  },
+  {
+    "id": "announcement-2026-01-04-limit",
+    "type": "update",
+    "title": "記事登録数の上限を緩和しました",
+    "description": "記事登録数の上限を緩和しました",
+    "date": "2026-01-04",
+    "url": null
+  }
+]

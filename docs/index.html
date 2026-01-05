@@ -41,18 +41,25 @@
                     <i class="fas fa-puzzle-piece text-primary-500 text-2xl"></i>
                     <h1 class="text-xl font-bold text-gray-900">kintone Plugins</h1>
                 </div>
-                <ul class="hidden md:flex space-x-8">
-                    <li><a href="#plugins" class="text-gray-600 hover:text-primary-500 transition">プラグイン</a></li>
-                    <li><a href="#about" class="text-gray-600 hover:text-primary-500 transition">について</a></li>
-                    <li><a href="#contact" class="text-gray-600 hover:text-primary-500 transition">お問い合わせ</a></li>
-                    <li><a href="https://github.com/tekuteku3210/kintone-plugins" target="_blank" class="text-gray-600 hover:text-primary-500 transition">
-                        <i class="fab fa-github text-xl"></i>
-                    </a></li>
-                </ul>
-                <!-- モバイルメニューボタン -->
-                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
+                <div class="flex items-center space-x-4">
+                    <ul class="hidden md:flex space-x-8">
+                        <li><a href="#plugins" class="text-gray-600 hover:text-primary-500 transition">プラグイン</a></li>
+                        <li><a href="#about" class="text-gray-600 hover:text-primary-500 transition">について</a></li>
+                        <li><a href="#contact" class="text-gray-600 hover:text-primary-500 transition">お問い合わせ</a></li>
+                        <li><a href="https://github.com/tekuteku3210/kintone-plugins" target="_blank" class="text-gray-600 hover:text-primary-500 transition">
+                            <i class="fab fa-github text-xl"></i>
+                        </a></li>
+                    </ul>
+                    <!-- 通知ベル -->
+                    <button id="notification-bell" class="relative text-gray-600 hover:text-primary-500 transition">
+                        <i class="fas fa-bell text-xl"></i>
+                        <span id="notification-badge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full font-bold hidden"></span>
+                    </button>
+                    <!-- モバイルメニューボタン -->
+                    <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
             <!-- モバイルメニュー -->
             <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
@@ -227,6 +234,27 @@
             </div>
         </div>
     </section>
+
+    <!-- お知らせモーダル -->
+    <div id="announcement-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] flex flex-col">
+            <!-- モーダルヘッダー -->
+            <div class="flex items-center justify-between p-6 border-b">
+                <h2 class="text-2xl font-bold text-gray-900">お知らせ一覧</h2>
+                <button id="close-modal" class="text-gray-400 hover:text-gray-600 transition">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <!-- モーダルコンテンツ -->
+            <div id="announcement-list" class="flex-1 overflow-y-auto p-6">
+                <!-- JavaScriptで動的に生成 -->
+                <div class="text-center text-gray-500 py-8">
+                    <i class="fas fa-spinner fa-spin text-3xl mb-4"></i>
+                    <p>読み込み中...</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- フッター -->
     <footer class="bg-gray-900 text-gray-300 py-8">
