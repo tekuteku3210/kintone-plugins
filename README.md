@@ -10,7 +10,7 @@ kintoneをもっと便利にする、シンプルで高品質なプラグイン�
 
 ### タブ表示プラグイン（TabView）
 
-**バージョン**: v1.0.0
+**バージョン**: v1.1.0
 **ライセンス**: MIT License（無償・商用利用可）
 **リリース日**: 2026年1月
 
@@ -22,24 +22,28 @@ kintoneのレコード詳細画面をタブで整理し、見やすく表示す�
 - タブの色とアイコンをカスタマイズ
 - プレビュー機能で設定を事前確認
 - レスポンシブデザイン対応
+- 利用状況の匿名統計収集（オプトアウト可能）
 
 **ダウンロード**:
-- [最新版をダウンロード](https://github.com/tekuteku3210/kintone-plugins/releases/latest)
+- [最新版をダウンロード (v1.1.0)](https://github.com/tekuteku3210/kintone-plugins/releases/download/tab-view-v1.1.0/tab-view-v1.1.0.zip)
 
 **詳細**:
 - [プラグインの詳細](https://tekuteku3210.github.io/kintone-plugins/plugins/tabview.html)
 - [プラグインREADME](./plugins/tab-view/README.md)
+- [プライバシーポリシー](https://tekuteku3210.github.io/kintone-plugins/privacy-policy.html)
 
 ---
 
 ## 🚀 インストール方法
 
-1. **ダウンロード**: 上記のリンクから`tab-view-plugin.zip`をダウンロード
+1. **ダウンロード**: 上記のリンクから`tab-view-v1.1.0.zip`をダウンロード
 2. **アップロード**: kintoneの「設定」→「プラグイン」→「読み込む」からZIPファイルをアップロード
 3. **追加**: 対象アプリの「設定」→「プラグイン」→「追加」からプラグインを選択
 4. **設定**: プラグインの設定画面でタブを作成
 
 詳しい手順は[公式サイト](https://tekuteku3210.github.io/kintone-plugins/plugins/tabview.html)をご覧ください。
+
+**プライバシーについて**: このプラグインは、サービス改善のために匿名化された利用統計情報を収集します。詳細は[プライバシーポリシー](https://tekuteku3210.github.io/kintone-plugins/privacy-policy.html)をご確認ください。
 
 ---
 
