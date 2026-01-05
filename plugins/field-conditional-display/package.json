@@ -25,6 +25,7 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.16",
+    "canvas": "^3.2.0",
     "css-loader": "^6.8.1",
     "postcss": "^8.4.32",
     "postcss-loader": "^7.3.3",

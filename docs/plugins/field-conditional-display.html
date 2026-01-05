@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="フィールド条件表示プラグイン - 条件に応じてフィールドやスペースの表示/非表示を動的に制御">
+    <title>フィールド条件表示プラグイン - kintone Plugin</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- カスタムスタイル -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- ヘッダー -->
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="../index.html" class="flex items-center space-x-3 hover:opacity-80 transition">
+                        <i class="fas fa-puzzle-piece text-primary-500 text-2xl"></i>
+                        <h1 class="text-xl font-bold text-gray-900">kintone Plugins</h1>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-gray-600 hover:text-primary-500 transition">
+                    <i class="fas fa-arrow-left mr-2"></i> 一覧に戻る
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- プラグイン詳細ヘッダー -->
+    <section class="bg-gradient-to-r from-green-500 to-green-600 text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center mb-4">
+                <div class="bg-white bg-opacity-20 w-16 h-16 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-code-branch text-3xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-4xl font-bold mb-2">フィールド条件表示プラグイン</h2>
+                    <p class="text-xl text-green-100">条件に応じてフィールドやスペースの表示/非表示を制御</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-6 mt-6">
+                <span class="bg-green-400 text-white px-3 py-1 rounded-full text-sm font-semibold">無償</span>
+                <span class="text-green-100"><i class="fas fa-tag mr-2"></i>v1.0.0</span>
+                <span class="text-green-100"><i class="fas fa-calendar mr-2"></i>2026年1月リリース</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ダウンロードセクション -->
+    <section class="bg-white shadow-md -mt-8 relative z-10">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-lg font-semibold mb-1">今すぐダウンロード</h3>
+                    <p class="text-gray-600 text-sm">登録不要・無料でご利用いただけます</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://github.com/tekuteku3210/kintone-plugins/releases/download/field-conditional-display-v1.0.0/field-conditional-display-v1.0.0.zip"
+                       class="bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition font-medium inline-flex items-center"
+                       download>
+                        <i class="fas fa-download mr-2"></i> ZIPをダウンロード (v1.0.0)
+                    </a>
+                    <a href="https://github.com/tekuteku3210/kintone-plugins/tree/main/plugins/field-conditional-display"
+                       target="_blank"
+                       class="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition font-medium inline-flex items-center">
+                        <i class="fab fa-github mr-2"></i> GitHubで見る
+                    </a>
+                </div>
+            </div>
+            <!-- プライバシー注意書き -->
+            <div class="mt-6 bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                <div class="flex items-start">
+                    <i class="fas fa-info-circle text-green-500 mt-1 mr-3"></i>
+                    <div>
+                        <p class="text-sm text-gray-700 mb-2">
+                            <strong>プライバシーについて:</strong> このプラグインは、サービス改善のために匿名化された利用統計情報（起動回数、ルール数など）を収集します。
+                            個人情報やレコードデータは一切収集しません。
+                        </p>
+                        <a href="../privacy-policy.html" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                            詳細はプライバシーポリシーをご覧ください →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- メインコンテンツ -->
+    <main class="container mx-auto px-6 py-12">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- 左カラム: メインコンテンツ -->
+            <div class="lg:col-span-2">
+                <!-- 概要 -->
+                <section class="bg-white rounded-lg shadow-md p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>
+                        概要
+                    </h3>
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        フィールド条件表示プラグインは、kintoneのレコード画面で、特定の条件に応じてフィールドやスペースの表示/非表示を動的に制御できるプラグインです。
+                        直感的な設定画面で、ノーコードでフォームの最適化が可能です。
+                    </p>
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                        <p class="text-gray-700 font-medium">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            複雑なJavaScriptコードを書かずに、条件分岐による表示制御を実現
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 主な機能 -->
+                <section class="bg-white rounded-lg shadow-md p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-3"></i>
+                        主な機能
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <h4 class="font-semibold">単一条件の評価</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">等しい、等しくない、空、空でない の4つの演算子に対応</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <h4 class="font-semibold">フィールド表示制御</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">すべての標準フィールドタイプの表示/非表示に対応</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <h4 class="font-semibold">スペース表示制御</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">スペースフィールドの表示/非表示も制御可能</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <h4 class="font-semibold">複数ルール管理</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">複数のルールを作成して個別に有効/無効切り替え</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 使用例 -->
+                <section class="bg-white rounded-lg shadow-md p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>
+                        使用例
+                    </h3>
+
+                    <!-- 例1 -->
+                    <div class="mb-6 pb-6 border-b">
+                        <h4 class="font-bold text-lg mb-3 flex items-center">
+                            <span class="bg-green-100 text-green-800 w-8 h-8 rounded-full flex items-center justify-center mr-2 text-sm">1</span>
+                            顧客区分による項目切り替え
+                        </h4>
+                        <div class="bg-gray-50 p-4 rounded-lg mb-3">
+                            <p class="text-sm font-semibold text-gray-700 mb-2">条件:</p>
+                            <p class="text-sm text-gray-600 ml-4">• トリガーフィールド: 顧客区分（ドロップダウン）</p>
+                            <p class="text-sm text-gray-600 ml-4">• 演算子: 等しい</p>
+                            <p class="text-sm text-gray-600 ml-4">• 値: 法人</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="text-sm font-semibold text-gray-700 mb-2">アクション:</p>
+                            <p class="text-sm text-gray-600 ml-4">• 表示: 法人名、部署</p>
+                            <p class="text-sm text-gray-600 ml-4">• 非表示: 個人名</p>
+                        </div>
+                    </div>
+
+                    <!-- 例2 -->
+                    <div class="mb-6 pb-6 border-b">
+                        <h4 class="font-bold text-lg mb-3 flex items-center">
+                            <span class="bg-green-100 text-green-800 w-8 h-8 rounded-full flex items-center justify-center mr-2 text-sm">2</span>
+                            商品カテゴリによる詳細項目表示
+                        </h4>
+                        <div class="bg-gray-50 p-4 rounded-lg mb-3">
+                            <p class="text-sm font-semibold text-gray-700 mb-2">条件:</p>
+                            <p class="text-sm text-gray-600 ml-4">• トリガーフィールド: 商品カテゴリ（ドロップダウン）</p>
+                            <p class="text-sm text-gray-600 ml-4">• 演算子: 等しい</p>
+                            <p class="text-sm text-gray-600 ml-4">• 値: 電化製品</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="text-sm font-semibold text-gray-700 mb-2">アクション:</p>
+                            <p class="text-sm text-gray-600 ml-4">• 表示: 型番、保証期間</p>
+                        </div>
+                    </div>
+
+                    <!-- 例3 -->
+                    <div>
+                        <h4 class="font-bold text-lg mb-3 flex items-center">
+                            <span class="bg-green-100 text-green-800 w-8 h-8 rounded-full flex items-center justify-center mr-2 text-sm">3</span>
+                            確度による見込み時期の表示制御
+                        </h4>
+                        <div class="bg-gray-50 p-4 rounded-lg mb-3">
+                            <p class="text-sm font-semibold text-gray-700 mb-2">条件:</p>
+                            <p class="text-sm text-gray-600 ml-4">• トリガーフィールド: 確度（ラジオボタン）</p>
+                            <p class="text-sm text-gray-600 ml-4">• 演算子: 等しくない</p>
+                            <p class="text-sm text-gray-600 ml-4">• 値: A</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="text-sm font-semibold text-gray-700 mb-2">アクション:</p>
+                            <p class="text-sm text-gray-600 ml-4">• 非表示: 見込み時期</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 対応フィールドタイプ -->
+                <section class="bg-white rounded-lg shadow-md p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-list text-blue-500 mr-3"></i>
+                        対応フィールドタイプ
+                    </h3>
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-3">トリガーフィールド（条件判定に使用）</h4>
+                        <div class="grid md:grid-cols-2 gap-2">
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                文字列（1行）
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                文字列（複数行）
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                数値
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                ドロップダウン
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                ラジオボタン
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                チェックボックス
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                日付
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                日時
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                ユーザー選択
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                組織選択
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                グループ選択
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3">ターゲット（表示制御対象）</h4>
+                        <p class="text-sm text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            全ての標準フィールド、スペース
+                        </p>
+                    </div>
+                </section>
+
+                <!-- インストール方法 -->
+                <section class="bg-white rounded-lg shadow-md p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-download text-blue-500 mr-3"></i>
+                        インストール方法
+                    </h3>
+                    <ol class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="bg-primary-100 text-primary-600 w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0 font-bold">1</span>
+                            <div>
+                                <p class="font-semibold mb-1">ZIPファイルをダウンロード</p>
+                                <p class="text-sm text-gray-600">上部のダウンロードボタンから最新版のZIPファイルをダウンロードします。</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-primary-100 text-primary-600 w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0 font-bold">2</span>
+                            <div>
+                                <p class="font-semibold mb-1">kintoneにアップロード</p>
+                                <p class="text-sm text-gray-600">kintoneの「設定」→「プラグイン」→「読み込む」からZIPファイルをアップロードします。</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-primary-100 text-primary-600 w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0 font-bold">3</span>
+                            <div>
+                                <p class="font-semibold mb-1">アプリに追加</p>
+                                <p class="text-sm text-gray-600">対象アプリの「設定」→「プラグイン」→「追加」から追加します。</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-primary-100 text-primary-600 w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0 font-bold">4</span>
+                            <div>
+                                <p class="font-semibold mb-1">ルールを設定</p>
+                                <p class="text-sm text-gray-600">プラグインの設定画面を開き、表示制御ルールを設定します。</p>
+                            </div>
+                        </li>
+                    </ol>
+                </section>
+
+                <!-- 更新履歴 -->
+                <section class="bg-white rounded-lg shadow-md p-8">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-history text-blue-500 mr-3"></i>
+                        更新履歴
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold mr-2">v1.0.0</span>
+                                <span class="text-sm text-gray-500">2026年1月</span>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-2 font-semibold">初回リリース</p>
+                            <ul class="text-sm text-gray-600 space-y-1 ml-4">
+                                <li>• 単一条件による表示制御</li>
+                                <li>• フィールド/スペースの表示/非表示</li>
+                                <li>• 複数ルールの管理</li>
+                                <li>• 直感的な設定画面UI</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 右カラム: サイドバー -->
+            <div class="lg:col-span-1">
+                <!-- クイック情報 -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6 sticky top-6">
+                    <h4 class="font-bold mb-4 text-lg">プラグイン情報</h4>
+                    <dl class="space-y-3 text-sm">
+                        <div>
+                            <dt class="text-gray-600 mb-1">バージョン</dt>
+                            <dd class="font-semibold">v1.0.0</dd>
+                        </div>
+                        <div>
+                            <dt class="text-gray-600 mb-1">リリース日</dt>
+                            <dd class="font-semibold">2026年1月</dd>
+                        </div>
+                        <div>
+                            <dt class="text-gray-600 mb-1">ライセンス</dt>
+                            <dd class="font-semibold">MIT License（無償）</dd>
+                        </div>
+                        <div>
+                            <dt class="text-gray-600 mb-1">対応画面</dt>
+                            <dd class="font-semibold">詳細/編集/追加</dd>
+                        </div>
+                    </dl>
+
+                    <div class="mt-6 pt-6 border-t">
+                        <h5 class="font-semibold mb-3">リンク</h5>
+                        <div class="space-y-2">
+                            <a href="https://github.com/tekuteku3210/kintone-plugins/tree/main/plugins/field-conditional-display"
+                               target="_blank"
+                               class="flex items-center text-sm text-gray-700 hover:text-primary-600 transition">
+                                <i class="fab fa-github mr-2"></i> ソースコード
+                            </a>
+                            <a href="https://github.com/tekuteku3210/kintone-plugins/issues"
+                               target="_blank"
+                               class="flex items-center text-sm text-gray-700 hover:text-primary-600 transition">
+                                <i class="fas fa-bug mr-2"></i> バグ報告
+                            </a>
+                            <a href="https://github.com/tekuteku3210/kintone-plugins/blob/main/plugins/field-conditional-display/README.md"
+                               target="_blank"
+                               class="flex items-center text-sm text-gray-700 hover:text-primary-600 transition">
+                                <i class="fas fa-book mr-2"></i> ドキュメント
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- サポート -->
+                <div class="bg-blue-50 rounded-lg p-6 border border-blue-200">
+                    <h4 class="font-bold mb-3 flex items-center text-blue-900">
+                        <i class="fas fa-question-circle mr-2"></i>
+                        サポート
+                    </h4>
+                    <p class="text-sm text-blue-800 mb-4">
+                        質問やバグ報告は、GitHubのIssuesでお願いします。
+                    </p>
+                    <a href="https://github.com/tekuteku3210/kintone-plugins/issues"
+                       target="_blank"
+                       class="block text-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm font-medium">
+                        <i class="fab fa-github mr-2"></i> Issuesを開く
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-gray-900 text-gray-300 py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-2">&copy; 2026 kintone Plugins. All rights reserved.</p>
+            <p class="text-sm text-gray-500 mb-2">Made with <i class="fas fa-heart text-red-500"></i> for kintone users</p>
+            <p class="text-sm text-gray-500">
+                <a href="../privacy-policy.html" class="hover:text-white transition">プライバシーポリシー</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

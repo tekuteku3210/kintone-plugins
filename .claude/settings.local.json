@@ -30,7 +30,21 @@
       "Bash(node -e:*)",
       "Bash(unzip:*)",
       "Bash(gh release create:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(ls:*)",
+      "Bash(gh release delete:*)",
+      "Bash(gh workflow:*)",
+      "Bash(gh run list:*)",
+      "Bash(curl:*)",
+      "Bash(git restore:*)",
+      "Bash(plugin.zip )",
+      "Bash(gh release view:*)",
+      "Bash(gh release edit:*)",
+      "Bash(git tag:*)",
+      "Bash(git stash:*)",
+      "Bash(git checkout:*)",
+      "Bash(plugins/tab-view/tab-view-v1.0.0.zip)",
+      "Bash(claude code compact)"
     ]
   }
 }
