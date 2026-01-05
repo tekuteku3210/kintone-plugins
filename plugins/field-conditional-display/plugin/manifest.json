@@ -1,0 +1,28 @@
+{
+  "manifest_version": 1,
+  "version": "1.0.0",
+  "type": "APP",
+  "name": {
+    "ja": "フィールド条件表示プラグイン",
+    "en": "Field Conditional Display Plugin"
+  },
+  "description": {
+    "ja": "条件に応じてフィールドやスペースの表示/非表示を動的に制御します。",
+    "en": "Dynamically control field and space visibility based on conditions."
+  },
+  "icon": "icon.png",
+  "desktop": {
+    "js": [
+      "js/desktop.js"
+    ],
+    "css": []
+  },
+  "config": {
+    "html": "html/config.html",
+    "js": [
+      "js/config.js"
+    ],
+    "css": [],
+    "required_params": []
+  }
+}
