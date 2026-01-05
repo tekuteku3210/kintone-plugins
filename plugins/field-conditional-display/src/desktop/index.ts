@@ -90,20 +90,48 @@ import { FieldService } from '../shared/FieldService';
   // レコード詳細画面表示時
   kintone.events.on('app.record.detail.show', (event) => {
     applyRules(event.record);
-    analytics.track('plugin_activated', {
-      screen: 'detail',
+
+    // プラグイン起動イベント送信
+    analytics.track('plugin_loaded', {
+      screen_type: 'detail',
       rule_count: enabledRules.length
     });
+
+    // 初回アクティベーション記録（アプリごとに1回のみ）
+    const activationKey = `field_conditional_display_activated_${kintone.app.getId()}`;
+    if (!localStorage.getItem(activationKey)) {
+      analytics.track('plugin_activated', {
+        screen_type: 'detail',
+        rule_count: enabledRules.length
+      });
+      localStorage.setItem(activationKey, 'true');
+    }
+
     return event;
   });
 
   // レコード編集画面表示時
   kintone.events.on(['app.record.edit.show', 'app.record.create.show'], (event) => {
     applyRules(event.record);
-    analytics.track('plugin_activated', {
-      screen: event.type === 'app.record.create.show' ? 'create' : 'edit',
+
+    const screenType = event.type === 'app.record.create.show' ? 'create' : 'edit';
+
+    // プラグイン起動イベント送信
+    analytics.track('plugin_loaded', {
+      screen_type: screenType,
       rule_count: enabledRules.length
     });
+
+    // 初回アクティベーション記録（アプリごとに1回のみ）
+    const activationKey = `field_conditional_display_activated_${kintone.app.getId()}`;
+    if (!localStorage.getItem(activationKey)) {
+      analytics.track('plugin_activated', {
+        screen_type: screenType,
+        rule_count: enabledRules.length
+      });
+      localStorage.setItem(activationKey, 'true');
+    }
+
     return event;
   });
 

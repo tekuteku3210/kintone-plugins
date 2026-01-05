@@ -78,17 +78,25 @@ const insertTabView = (eventType: string) => {
 
 // レコード詳細画面の表示イベント
 kintone.events.on('app.record.detail.show', (event) => {
-  // プラグイン起動イベント送信
-  posthog.capture('plugin_loaded', {
-    plugin_version: '1.1.0',
-    screen_type: 'detail',
-    app_id: kintone.app.getId(),
-  });
+  // アプリごとに1回のみ送信（plugin_loaded）
+  const loadedKey = `tabview_loaded_${kintone.app.getId()}`;
+  if (!localStorage.getItem(loadedKey)) {
+    posthog.capture('plugin_loaded', {
+      plugin_id: PLUGIN_ID,
+      plugin_name: 'tab-view',
+      plugin_version: '1.1.0',
+      screen_type: 'detail',
+      app_id: kintone.app.getId(),
+    });
+    localStorage.setItem(loadedKey, 'true');
+  }
 
-  // 初回起動時のみ送信
+  // 初回起動時のみ送信（plugin_activated）
   const activationKey = `tabview_activated_${kintone.app.getId()}`;
   if (!localStorage.getItem(activationKey)) {
     posthog.capture('plugin_activated', {
+      plugin_id: PLUGIN_ID,
+      plugin_name: 'tab-view',
       plugin_version: '1.1.0',
       app_id: kintone.app.getId(),
     });

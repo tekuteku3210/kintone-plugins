@@ -17,25 +17,16 @@ export class Analytics {
    * PostHogを初期化
    */
   private init(): void {
-    // プレースホルダーキーの場合は初期化をスキップ（開発中）
-    const apiKey = 'YOUR_POSTHOG_PROJECT_KEY';
-    if (apiKey === 'YOUR_POSTHOG_PROJECT_KEY') {
-      console.log('[Field Conditional Display] Analytics無効（開発モード）');
-      return;
-    }
-
     try {
-      // PostHogの初期化（プロジェクトキーは後で設定）
-      posthog.init(apiKey, {
-        api_host: 'https://app.posthog.com',
+      // TabViewと同じAPIキーを使用
+      posthog.init('phc_napdqTHY8WAh0sM8IEH7XLj17z0B3qPoZKizMw7sEhy', {
+        api_host: 'https://us.i.posthog.com',
         autocapture: false,  // 自動キャプチャOFF
-        capture_pageview: false,  // ページビュー自動取得OFF
-        session_recording: {
-          enabled: false  // セッション録画OFF
+        persistence: 'localStorage',
+        loaded: (ph: any) => {
+          ph.set_config({ ip: false });  // IPアドレス匿名化
         },
-        person_profiles: 'identified_only',  // 匿名化
-        ip: false  // IPアドレス収集OFF
-      });
+      } as any);
 
       this.initialized = true;
     } catch (error) {
