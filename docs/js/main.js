@@ -1,6 +1,65 @@
 // メインJavaScript
 
 document.addEventListener('DOMContentLoaded', () => {
+  // プラグイン情報をGitHubから自動取得
+  async function loadPluginInfo() {
+    const pluginCards = document.querySelectorAll('[data-plugin]');
+
+    for (const card of pluginCards) {
+      const pluginName = card.getAttribute('data-plugin');
+
+      try {
+        // GitHub Releases APIから最新リリースを取得
+        const response = await fetch(`https://api.github.com/repos/tekuteku3210/kintone-plugins/releases`);
+        if (!response.ok) throw new Error('Failed to fetch releases');
+
+        const releases = await response.json();
+
+        // 指定されたプラグインのリリースを探す（タグ名が "{plugin-name}-v" で始まるもの）
+        const pluginRelease = releases.find(r => r.tag_name.startsWith(`${pluginName}-v`));
+
+        if (pluginRelease) {
+          // バージョン表記を更新（tag_nameから "tab-view-v1.1.0" → "v1.1.0"）
+          const version = pluginRelease.tag_name.replace(`${pluginName}-`, '');
+          const versionSpan = card.querySelector('.plugin-version');
+          if (versionSpan) {
+            versionSpan.textContent = version;
+          }
+
+          // 日付を更新（published_atから "YYYY-MM-DD" → "YYYY年M月"）
+          const dateSpan = card.querySelector('.plugin-date');
+          if (dateSpan) {
+            const publishedDate = new Date(pluginRelease.published_at);
+            const year = publishedDate.getFullYear();
+            const month = publishedDate.getMonth() + 1;
+            dateSpan.textContent = `${year}年${month}月`;
+          }
+
+          // ダウンロードリンクを更新
+          const downloadLink = card.querySelector('.plugin-download');
+          if (downloadLink && pluginRelease.assets.length > 0) {
+            // assetsの中から .zip ファイルを探す
+            const zipAsset = pluginRelease.assets.find(a => a.name.endsWith('.zip'));
+            if (zipAsset) {
+              downloadLink.href = zipAsset.browser_download_url;
+              downloadLink.setAttribute('download', zipAsset.name);
+            }
+          }
+        }
+      } catch (error) {
+        console.error(`プラグイン情報の取得に失敗しました (${pluginName}):`, error);
+        // エラー時はデフォルト表示のまま
+        const versionSpan = card.querySelector('.plugin-version');
+        if (versionSpan && versionSpan.textContent === '読み込み中...') {
+          versionSpan.textContent = '-';
+        }
+      }
+    }
+  }
+
+  // ページ読み込み時にプラグイン情報を取得
+  loadPluginInfo();
+
   // モバイルメニューの切り替え
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
