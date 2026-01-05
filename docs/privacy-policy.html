@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="kintone Plugins プライバシーポリシー - 個人情報保護方針と利用統計情報の取り扱いについて">
+    <title>プライバシーポリシー - kintone Plugins</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- カスタムスタイル -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- ヘッダー -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-puzzle-piece text-primary-500 text-2xl"></i>
+                    <a href="index.html" class="text-xl font-bold text-gray-900">kintone Plugins</a>
+                </div>
+                <ul class="hidden md:flex space-x-8">
+                    <li><a href="index.html#plugins" class="text-gray-600 hover:text-primary-500 transition">プラグイン</a></li>
+                    <li><a href="index.html#about" class="text-gray-600 hover:text-primary-500 transition">について</a></li>
+                    <li><a href="index.html#contact" class="text-gray-600 hover:text-primary-500 transition">お問い合わせ</a></li>
+                    <li><a href="https://github.com/tekuteku3210/kintone-plugins" target="_blank" class="text-gray-600 hover:text-primary-500 transition">
+                        <i class="fab fa-github text-xl"></i>
+                    </a></li>
+                </ul>
+                <!-- モバイルメニューボタン -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            <!-- モバイルメニュー -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <ul class="space-y-3">
+                    <li><a href="index.html#plugins" class="block text-gray-600 hover:text-primary-500 transition">プラグイン</a></li>
+                    <li><a href="index.html#about" class="block text-gray-600 hover:text-primary-500 transition">について</a></li>
+                    <li><a href="index.html#contact" class="block text-gray-600 hover:text-primary-500 transition">お問い合わせ</a></li>
+                    <li><a href="https://github.com/tekuteku3210/kintone-plugins" target="_blank" class="block text-gray-600 hover:text-primary-500 transition">
+                        GitHub <i class="fab fa-github"></i>
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="bg-gradient-to-r from-primary-500 to-primary-600 text-white py-16">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">プライバシーポリシー</h1>
+            <p class="text-xl text-primary-50">個人情報保護方針と利用統計情報の取り扱いについて</p>
+        </div>
+    </section>
+
+    <!-- メインコンテンツ -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <!-- 最終更新日 -->
+                <p class="text-sm text-gray-500 mb-8">最終更新日: 2026年1月5日</p>
+
+                <!-- 基本方針 -->
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">基本方針</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        kintone Plugins（以下「当サービス」）は、ユーザーのプライバシーを尊重し、個人情報の保護に最大限の注意を払います。
+                        当サービスが提供するプラグインは、以下のプライバシーポリシーに基づいて運営されます。
+                    </p>
+                </div>
+
+                <!-- 収集する情報 -->
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">収集する情報</h2>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        当サービスは、サービス改善のために以下の<strong>匿名化された利用統計情報</strong>を収集します:
+                    </p>
+
+                    <div class="bg-blue-50 border-l-4 border-primary-500 p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                            <i class="fas fa-chart-line text-primary-500"></i>
+                            収集する匿名統計情報
+                        </h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span><strong>プラグイン起動回数</strong>: レコード詳細画面を開いた回数（DAU/MAU測定用）</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span><strong>初回アクティベーション</strong>: アプリごとの初回起動イベント</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span><strong>タブ切り替え回数</strong>: どのタブがよく使われているかの統計（TabViewプラグインのみ）</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span><strong>プラグインバージョン</strong>: 使用中のプラグインバージョン番号</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span><strong>アプリID</strong>: kintoneアプリID（環境を識別するため）</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                            <i class="fas fa-shield-alt text-red-500"></i>
+                            収集しない情報
+                        </h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-times-circle text-red-500 mr-2 mt-1"></i>
+                                <span><strong>個人情報</strong>: ユーザー名、メールアドレス、IPアドレスなど</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times-circle text-red-500 mr-2 mt-1"></i>
+                                <span><strong>レコードデータ</strong>: フィールドの値、レコードの内容</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times-circle text-red-500 mr-2 mt-1"></i>
+                                <span><strong>設定情報</strong>: タブ名、フィールド名、アプリ設定</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times-circle text-red-500 mr-2 mt-1"></i>
+                                <span><strong>セッション記録</strong>: 画面操作の録画やスクリーンショット</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times-circle text-red-500 mr-2 mt-1"></i>
+                                <span><strong>クリック・入力内容</strong>: 自動キャプチャ機能は完全に無効</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- プライバシー保護措置 -->
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">プライバシー保護措置</h2>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        当サービスは、以下の技術的措置によりユーザーのプライバシーを保護しています:
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white border border-gray-200 rounded-lg p-6">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-user-secret text-green-600 text-xl"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">IPアドレス匿名化</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm">IPアドレスは収集されません（`ip: false`設定）</p>
+                        </div>
+
+                        <div class="bg-white border border-gray-200 rounded-lg p-6">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-video-slash text-green-600 text-xl"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">セッション録画OFF</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm">画面操作の録画は行いません（`disable_session_recording: true`）</p>
+                        </div>
+
+                        <div class="bg-white border border-gray-200 rounded-lg p-6">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-mouse-pointer text-green-600 text-xl"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">自動キャプチャOFF</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm">クリック・入力などの自動トラッキングは無効（`autocapture: false`）</p>
+                        </div>
+
+                        <div class="bg-white border border-gray-200 rounded-lg p-6">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-hdd text-green-600 text-xl"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">ローカルストレージのみ</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm">データはブラウザのlocalStorageに保存され、外部送信されません（初回起動フラグのみ）</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- データの用途 -->
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">データの用途</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        収集した匿名統計情報は、以下の目的でのみ使用されます:
+                    </p>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-primary-500 mr-2 mt-1"></i>
+                            <span>プラグインの利用状況の把握（DAU/MAU）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-primary-500 mr-2 mt-1"></i>
+                            <span>機能改善の優先度決定（どの機能がよく使われているか）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-primary-500 mr-2 mt-1"></i>
+                            <span>バグ修正・パフォーマンス改善</span>
+                        </li>
+                    </ul>
+                    <p class="text-gray-700 leading-relaxed mt-4">
+                        <strong>収集したデータは第三者に販売・提供されることはありません。</strong>
+                    </p>
+                </div>
+
+                <!-- データの保存先 -->
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">データの保存先</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        利用統計情報は、以下のサービスに送信・保存されます:
+                    </p>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-3">Posthog Cloud (米国)</h3>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li class="flex items-start">
+                                <i class="fas fa-info-circle text-primary-500 mr-2 mt-1"></i>
+                                <span>サービス提供者: Posthog Inc. (米国カリフォルニア州)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-info-circle text-primary-500 mr-2 mt-1"></i>
+                                <span>用途: プロダクトアナリティクス（利用統計分析）</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-info-circle text-primary-500 mr-2 mt-1"></i>
+                                <span>プライバシーポリシー: <a href="https://posthog.com/privacy" target="_blank" class="text-primary-500 hover:underline">https://posthog.com/privacy</a></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- オプトアウト -->
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">オプトアウト（統計送信の停止）</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        利用統計の送信を停止したい場合は、ブラウザの開発者ツールのコンソールで以下のコマンドを実行してください:
+                    </p>
+                    <div class="bg-gray-900 text-white p-4 rounded-lg font-mono text-sm">
+                        posthog.opt_out_capturing();
+                    </div>
+                    <p class="text-gray-600 text-sm mt-4">
+                        <i class="fas fa-info-circle text-primary-500 mr-1"></i>
+                        オプトアウト後も、プラグインの機能は通常通りご利用いただけます。
+                    </p>
+                </div>
+
+                <!-- クッキー（Cookie）の使用 -->
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">クッキー（Cookie）の使用</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        当サービスは、以下の目的でブラウザのlocalStorageを使用します:
+                    </p>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-primary-500 mr-2 mt-1"></i>
+                            <span>初回アクティベーションの記録（アプリごとに1回のみ送信するため）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-primary-500 mr-2 mt-1"></i>
+                            <span>オプトアウト設定の保存</span>
+                        </li>
+                    </ul>
+                    <p class="text-gray-700 leading-relaxed mt-4">
+                        第三者クッキー（トラッキングクッキー）は使用していません。
+                    </p>
+                </div>
+
+                <!-- 第三者への提供 -->
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">第三者への提供</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        当サービスは、収集した情報を以下の場合を除き、第三者に提供することはありません:
+                    </p>
+                    <ul class="space-y-2 text-gray-700 mt-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-primary-500 mr-2 mt-1"></i>
+                            <span>法令に基づく場合</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-primary-500 mr-2 mt-1"></i>
+                            <span>ユーザーの同意がある場合</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- プライバシーポリシーの変更 -->
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-6">プライバシーポリシーの変更</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        当サービスは、必要に応じてプライバシーポリシーを変更することがあります。
+                        変更した場合は、このページに掲載し、重要な変更については適切な方法でお知らせします。
+                    </p>
+                </div>
+
+                <!-- お問い合わせ -->
+                <div class="bg-primary-50 border-l-4 border-primary-500 p-6 rounded-lg">
+                    <h2 class="text-2xl font-bold mb-4">お問い合わせ</h2>
+                    <p class="text-gray-700 mb-4">
+                        プライバシーポリシーに関するご質問は、GitHubのIssuesページにてお願いします。
+                    </p>
+                    <a href="https://github.com/tekuteku3210/kintone-plugins/issues" target="_blank"
+                       class="inline-block bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition font-medium">
+                        <i class="fab fa-github mr-2"></i> GitHub Issuesを開く
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-2">&copy; 2026 kintone Plugins. All rights reserved.</p>
+            <p class="text-sm text-gray-500">
+                <a href="privacy-policy.html" class="hover:text-white transition">プライバシーポリシー</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

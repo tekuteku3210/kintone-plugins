@@ -21,13 +21,6 @@ posthog.init('phc_napdqTHY8WAh0sM8IEH7XLj17z0B3qPoZKizMw7sEhy', {
 // デバッグ: ファイルが読み込まれたことを確認
 console.log('TabView: desktop.js ファイルが読み込まれました');
 
-// 一覧画面では何もしない（スペースフィールドは一覧画面に設置できないため）
-// このチェックにより、一覧画面でのエラーを防ぐ
-const pathname = window.location.pathname;
-if (pathname.includes('/show')) {
-  console.log('TabView: 一覧画面のため、プラグインを無効化します');
-}
-
 // タブUIを挿入する共通関数
 const insertTabView = (eventType: string) => {
   console.log(`TabView: ${eventType} イベント発火`);
