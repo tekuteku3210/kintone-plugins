@@ -217,18 +217,76 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // お知らせデータを読み込み
-  async function loadAnnouncements() {
+  // GitHubリリース情報を取得
+  async function fetchGitHubReleases() {
+    try {
+      const response = await fetch('https://api.github.com/repos/tekuteku3210/kintone-plugins/releases');
+      if (!response.ok) {
+        console.warn('GitHub Releases APIの取得に失敗しました');
+        return [];
+      }
+      const releases = await response.json();
+
+      // リリース情報をお知らせ形式に変換
+      return releases.map(release => {
+        // リリースノートから最初の数行を抽出（descriptionとして使用）
+        const body = release.body || '';
+        const lines = body.split('\n').filter(line => line.trim());
+        const description = lines.slice(0, 5).join('\n'); // 最初の5行を使用
+
+        return {
+          id: `release-${release.tag_name}`,
+          type: 'release',
+          title: release.name || release.tag_name,
+          description: description || 'リリースノートはありません',
+          date: release.published_at.split('T')[0], // ISO日付からYYYY-MM-DD形式に変換
+          url: release.html_url
+        };
+      });
+    } catch (error) {
+      console.error('GitHubリリース情報の取得エラー:', error);
+      return [];
+    }
+  }
+
+  // 手動お知らせデータを読み込み
+  async function fetchManualAnnouncements() {
     try {
       const response = await fetch('data/announcements.json');
-      if (!response.ok) throw new Error('Failed to load announcements');
-      const announcements = await response.json();
+      if (!response.ok) {
+        console.warn('手動お知らせの取得に失敗しました');
+        return [];
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('手動お知らせの取得エラー:', error);
+      return [];
+    }
+  }
 
-      // 日付の新しい順にソート
-      announcements.sort((a, b) => new Date(b.date) - new Date(a.date));
+  // お知らせデータを読み込み（GitHubリリース + 手動お知らせ）
+  async function loadAnnouncements() {
+    try {
+      // GitHubリリースと手動お知らせを並行取得
+      const [releaseAnnouncements, manualAnnouncements] = await Promise.all([
+        fetchGitHubReleases(),
+        fetchManualAnnouncements()
+      ]);
 
-      renderAnnouncements(announcements);
-      updateBadge(announcements);
+      // 重複を除去（手動お知らせのIDが優先）
+      const manualIds = new Set(manualAnnouncements.map(a => a.id));
+      const uniqueReleases = releaseAnnouncements.filter(a => !manualIds.has(a.id));
+
+      // 統合してソート
+      const allAnnouncements = [...manualAnnouncements, ...uniqueReleases];
+      allAnnouncements.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (allAnnouncements.length === 0) {
+        throw new Error('お知らせがありません');
+      }
+
+      renderAnnouncements(allAnnouncements);
+      updateBadge(allAnnouncements);
     } catch (error) {
       console.error('お知らせの読み込みに失敗しました:', error);
       announcementList.innerHTML = `
