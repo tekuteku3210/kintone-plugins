@@ -84,7 +84,7 @@ kintone.events.on('app.record.detail.show', (event) => {
     posthog.capture('plugin_loaded', {
       plugin_id: PLUGIN_ID,
       plugin_name: 'tab-view',
-      plugin_version: '1.1.0',
+      plugin_version: '1.1.1',
       screen_type: 'detail',
       app_id: kintone.app.getId(),
     });
@@ -97,7 +97,7 @@ kintone.events.on('app.record.detail.show', (event) => {
     posthog.capture('plugin_activated', {
       plugin_id: PLUGIN_ID,
       plugin_name: 'tab-view',
-      plugin_version: '1.1.0',
+      plugin_version: '1.1.1',
       app_id: kintone.app.getId(),
     });
     localStorage.setItem(activationKey, 'true');

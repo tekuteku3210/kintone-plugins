@@ -1,6 +1,6 @@
 {
   "name": "kintone-plugin-field-conditional-display",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "kintoneのフィールドを条件に応じて表示/非表示制御するプラグイン",
   "main": "index.js",
   "scripts": {

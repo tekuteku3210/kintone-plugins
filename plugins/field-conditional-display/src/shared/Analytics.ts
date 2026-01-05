@@ -46,7 +46,7 @@ export class Analytics {
       posthog.capture(eventName, {
         plugin_id: this.pluginId,
         plugin_name: 'field-conditional-display',
-        plugin_version: '1.0.0',
+        plugin_version: '1.0.1',
         app_id: appId,
         ...properties
       });
