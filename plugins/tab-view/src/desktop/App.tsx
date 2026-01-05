@@ -3,6 +3,7 @@ import type { Tab, PluginConfig, KintoneField } from '@/types';
 import { getConfig } from '@/utils/config';
 import { showField, hideField, getAppFields } from '@/utils/kintone';
 import TabView from './components/TabView';
+import posthog from 'posthog-js';
 
 const PLUGIN_ID = kintone.$PLUGIN_ID;
 
@@ -80,6 +81,13 @@ const App: React.FC = () => {
   }, [activeTabId, tabs, fields]);
 
   const handleTabChange = (tabId: string) => {
+    // タブ切り替えイベント送信
+    posthog.capture('tab_switched', {
+      tab_id: tabId,
+      tab_label: tabs.find((tab) => tab.id === tabId)?.label || '',
+      app_id: kintone.app.getId(),
+    });
+
     setActiveTabId(tabId);
   };
 
