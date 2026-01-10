@@ -233,24 +233,43 @@ http-server -p 8000
 
 ---
 
-## 📊 アクセス解析（任意）
+## 📊 アクセス解析・ダウンロード統計
 
-Google Analyticsなどのトラッキングコードを追加する場合:
+### 導入済みツール
 
-1. `index.html`と各ページの`<head>`タグ内に以下を追加:
+| ツール | 用途 | リンク |
+|--------|------|--------|
+| Google Analytics 4 | ページビュー・ユーザー分析 | 測定ID: `G-3EN96PCL52` |
+| Looker Studio | ダッシュボード可視化 | [ダッシュボード](https://lookerstudio.google.com/u/0/reporting/9c801b41-d794-4670-b5c1-80144f1e2444/page/PErkF/edit) |
+| Google スプレッドシート | ダウンロード数データ保存 | [スプレッドシート](https://docs.google.com/spreadsheets/d/1QKHe6joOn3Tj7SQ5V_K6enAVJEnRTJp4E1K0-2nc3Ok/edit?gid=0#gid=0) |
+| Google Apps Script | 毎日自動データ更新 | [スクリプト](https://script.google.com/u/0/home/projects/1E5vuFLqLqP5vzXDwgioACKnaWb6_2E-YtcA14wPz_erog1xuLtTDhe_q/edit) |
+
+### GA4トラッキングコード
+
+全HTMLページ（index.html, privacy-policy.html, plugins/*.html）に導入済み:
 
 ```html
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3EN96PCL52"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
+  gtag('config', 'G-3EN96PCL52');
 </script>
 ```
 
-2. [js/main.js](js/main.js)のダウンロードボタンクリック追跡部分のコメントを解除
+### ダウンロード数取得スクリプト
+
+`scripts/`フォルダに以下のスクリプトがあります:
+
+- `get-download-stats.sh` - ターミナルで統計確認
+- `export-download-stats-csv.sh` - CSV形式で出力
+
+### 自動更新
+
+Google Apps Scriptで毎日3〜4時に自動更新されます。
+ダウンロード数がスプレッドシートに追記され、Looker Studioに反映されます
 
 ---
 
